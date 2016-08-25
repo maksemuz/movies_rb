@@ -10,7 +10,7 @@ else
   puts "File #{ARGV[0]} does not exist. Using movies.txt"
   movie_file = "movies.txt"
 end
-puts movie_file
+
 f = File.readlines(movie_file)
 for line in f do
   line.force_encoding(Encoding::UTF_8)
