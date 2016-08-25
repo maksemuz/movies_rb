@@ -1,16 +1,13 @@
 #!/usr/bin/env ruby
 
-bad_movie = ['Titanic', 'Transformers']
-good_movie = ['Matrix', 'Crossroads', 'Treasure planet']
+f = File.open("movies.txt", "r")
 
-if ARGV.length != 1
-        puts "Usage: 'ruby movies_array.rb Movie_name' or 'ruby movies_array.rb \"Movie name\"' . Please try again."
-        exit
-end
-if bad_movie.include?(ARGV[0])
-        puts "#{ARGV[0]} is a bad movie"
-elsif good_movie.include?(ARGV[0])
-        puts "#{ARGV[0]} is a good movie"
-else 
-        puts "Haven't seen #{ARGV[0]} yet." 
+text = f.each do |line|
+  line.force_encoding(Encoding::UTF_8)
+  amovie = line.split("|")
+  stars = amovie[7].to_s.split(".")
+  stars_out = Array.new(stars[1].to_i,"*")
+  if amovie[1].include?("Time")
+      puts "#{amovie[1]} #{stars_out.join}"
+  end
 end
