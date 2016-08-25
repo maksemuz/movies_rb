@@ -1,8 +1,6 @@
 #!/usr/bin/env ruby
-
-f = File.open("movies.txt", "r")
-
-text = f.each do |line|
+f = File.readlines("movies.txt")
+for line in f do
   line.force_encoding(Encoding::UTF_8)
   amovie = line.split("|")
   stars = amovie[7].to_s.split(".")
