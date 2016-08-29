@@ -10,6 +10,14 @@ if !File.exist?(movie_file)
   puts "\n\nFile #{ARGV[0]} does not exist. Nothing to process. Exit.\n\n"
   exit
 end
+
+
+def film_out(arr)
+    arr.find_all { |obj| puts "#{obj[:title]} \(#{obj[:date]}; #{obj[:genre]}\) - #{obj[:duration]}"}
+    #print obj
+end
+
+
 labels = Array.new
 movie_line = Array.new
 movie_dict = Hash.new
@@ -21,11 +29,13 @@ movies_array = f.map { |string|  labels.zip(string.force_encoding(Encoding::UTF_
 
 # Output of 5 longest movies
 puts "\n5 longest movies\n\n"
-movies_array.sort_by { |obj| obj[:duration].split(" ")[0].to_i }.reverse[0..4].find_all { |obj| puts "#{obj[:title]} \(#{obj[:date]}; #{obj[:genre]}\) - #{obj[:duration]}"}
+var_to_out = movies_array.sort_by { |obj| obj[:duration].split(" ")[0].to_i }.reverse[0..4]
+film_out(var_to_out)
 
 # Output of 10 comedies
 puts "\n10 oldest comedies\n\n"
-movies_array.find_all { |obj| obj[:genre].include?("Comedy") }.sort_by { |obj| obj[:date] }[0..9].find_all { |obj| puts "#{obj[:title]} \(#{obj[:date]}; #{obj[:genre]}\) - #{obj[:duration]}"}
+var_to_out = movies_array.find_all { |obj| obj[:genre].include?("Comedy") }.sort_by { |obj| obj[:date] }[0..9]
+film_out(var_to_out)
 
 # Output of all directors
 puts "\nAll diretors sorted by last word of name\n\n"
