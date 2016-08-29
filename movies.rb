@@ -45,5 +45,5 @@ movies_array.uniq { |obj| obj[:director]  }
   .each { |obj| puts "#{obj[:director]}"}
 
 # Output of non-USA shot films amount
-puts "\nAmount of mom-USA shot films\n\n"
-puts "#{movies_array.find_all { |obj| obj[:country] != "USA" }.size}"
+puts "\nAmount of non-USA shot films\n\n"
+puts "#{movies_array.reject { |obj| obj[:country].include?("USA") }.size}"
