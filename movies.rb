@@ -27,7 +27,7 @@ movies_array2 = f2.map { |one_ar|  OpenStruct.new(labels.zip(one_ar).to_h)}
 # Output of 5 longest movies
 puts "\n5 longest movies\n\n"
 var_to_out = movies_array2
-  .sort_by { |obj| obj[:duration].to_i }
+  .sort_by { |obj| obj.duration.to_i }
   .reverse
   .first(5)
 film_out(var_to_out)
