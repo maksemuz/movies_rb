@@ -2,6 +2,7 @@
 Encoding.default_external = 'UTF-8'
 require 'csv'
 require 'ostruct'
+require 'date'
 
 if ARGV.length == 0
   puts "\n\nYou did not enter filename. Using movies.txt\n\n"
@@ -16,36 +17,48 @@ end
 
 
 def film_out(arr)
-    arr.each { |obj| puts "#{obj.title} \(#{obj.date}; #{obj.genre}\) - #{obj.duration}"}
+    arr.each { |movie| puts "#{movie.title} (#{movie.date}; #{movie.genre}) - #{movie.duration}"}
 end
 
-labels = [:link, :title, :year, :country, :date, :genre, :duration, :rating, :director, :main_actors]
-
-f2 = CSV.readlines(movie_file, col_sep: '|')
-movies_array2 = f2.map { |one_ar|  OpenStruct.new(labels.zip(one_ar).to_h)}
+LABELS = %i[link title year country date genre duration rating director main_actors]
+f2 = CSV.readlines(movie_file, col_sep: '|', headers: LABELS)
+movies = f2.map { |row| OpenStruct.new(row.to_h)}
 
 # Output of 5 longest movies
 puts "\n5 longest movies\n\n"
-var_to_out = movies_array2
-  .sort_by { |obj| obj.duration.to_i }
+var_to_out = movies
+  .sort_by { |movie| movie.duration.to_i }
   .reverse
   .first(5)
 film_out(var_to_out)
 
 # Output of 10 comedies
 puts "\n10 oldest comedies\n\n"
-var_to_out = movies_array2
-  .find_all { |obj| obj.genre.include?("Comedy") }
-  .sort_by { |obj| obj.date }
+var_to_out = movies
+  .find_all { |movie| movie.genre.include?("Comedy") }
+  .sort_by { |movie| movie.date }
   .first(10)
 film_out(var_to_out)
 
 # Output of all directors
-puts "\nAll diretors sorted by last word of name\n\n"
-movies_array2.uniq { |obj| obj.director  }
-  .sort_by { |obj| obj.director.split(" ").last }
-  .each { |obj| puts "#{obj.director}"}
+puts "\nAll directors sorted by last word of name\n\n"
+movies.uniq( &:director )
+  .sort_by { |movie| movie.director.split(" ").last }
+  .each { |movie| puts "#{movie.director}"}
 
 # Output of non-USA shot films amount
 puts "\nAmount of non-USA shot films\n\n"
-puts "#{movies_array2.reject { |obj| obj.country.include?("USA") }.size}"
+puts "#{movies.reject { |movie| movie.country.include?("USA") }.size}"
+
+
+# Output of non-USA shot films amount
+puts "\nFilms are shot by month\n\n"
+
+stats_count = Array.new(13,0)
+movies.each { |movie|  movie_date = movie.date.split("-");
+                      if (movie_date.size > 1 );
+                        stats_count[movie_date[1].to_i] +=1;
+                      end }
+stats_array = Date::MONTHNAMES.zip(stats_count).to_h
+stats_array.delete(nil)
+stats_array.each { |month| puts "#{month[0]} #{month[1]}"  }
