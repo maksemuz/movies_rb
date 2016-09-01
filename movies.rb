@@ -56,5 +56,5 @@ puts "\nFilms are shot by month\n\n"
 
 stats_array = movies.reject { |movie|  movie.date.split("-").size < 2; }
    .group_by { |movie| movie.date.split("-")[1] }
-stats_array.sort_by { |movie|  movie[0]}
-   .each { |movie| puts "#{Date::MONTHNAMES[movie[0].to_i]} #{movie[1].size}" }
+stats_array.sort
+   .each { |month, movie| puts "#{Date::MONTHNAMES[month.to_i]} #{movie.size}" }
