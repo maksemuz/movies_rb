@@ -54,11 +54,7 @@ puts "#{movies.reject { |movie| movie.country.include?("USA") }.size}"
 # Output of non-USA shot films amount
 puts "\nFilms are shot by month\n\n"
 
-stats_count = Array.new(13,0)
-movies.each { |movie|  movie_date = movie.date.split("-");
-                      if (movie_date.size > 1 );
-                        stats_count[movie_date[1].to_i] +=1;
-                      end }
-stats_array = Date::MONTHNAMES.zip(stats_count).to_h
-stats_array.delete(nil)
-stats_array.each { |month| puts "#{month[0]} #{month[1]}"  }
+stats_array = movies.reject { |movie|  movie.date.split("-").size < 2; }
+   .group_by { |movie| movie.date.split("-")[1] }
+stats_array.sort_by { |movie|  movie[0]}
+   .each { |movie| puts "#{Date::MONTHNAMES[movie[0].to_i]} #{movie[1].size}" }
