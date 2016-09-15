@@ -21,14 +21,11 @@ end
 
 amovie = MovieCollection.new(movie_file)
 
-=begin
-
 # sort_by something
 amovie.all
   .sort_by { |e| e.date }
   .each { |e|  puts "#{e.title} #{e.date}"}
 
-=end
+amovie.filter(genre: 'War').each { |e| puts "#{e.title}  #{e.genre}" }
 
-#amovie.filter(genre: 'War').each { |e| puts "#{e.title}  #{e.genre}" }
 amovie.stats(:director).sort_by { |e| e[0] }.each { |e| puts "#{e[0]} #{e[1].size}" }
