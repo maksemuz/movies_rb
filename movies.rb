@@ -15,7 +15,6 @@ if !File.exist?(movie_file)
   exit
 end
 
-
 def film_out(arr)
     arr.each { |movie| puts "#{movie.title} (#{movie.date}; #{movie.genre}) - #{movie.duration}"}
 end
@@ -51,10 +50,12 @@ puts "\nAmount of non-USA shot films\n\n"
 puts "#{movies.reject { |movie| movie.country.include?("USA") }.size}"
 
 
-# Output of non-USA shot films amount
+# Output of Films by month
 puts "\nFilms are shot by month\n\n"
 
 stats_array = movies.reject { |movie|  movie.date.split("-").size < 2; }
    .group_by { |movie| movie.date.split("-")[1] }
 stats_array.sort
    .each { |month, movie| puts "#{Date::MONTHNAMES[month.to_i]} #{movie.size}" }
+
+movies.each { |e| puts "#{e.inspect}" }
