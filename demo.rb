@@ -19,13 +19,19 @@ if !File.exist?(movie_file)
   exit
 end
 
-amovie = MovieCollection.new(movie_file)
+movies = MovieCollection.new(movie_file)
 
 # sort_by something
-amovie.all
+movies.all
   .sort_by { |e| e.date }
   .each { |e|  puts "#{e.title} #{e.date}"}
+=end
 
-amovie.filter(genre: 'War').each { |e| puts "#{e.title}  #{e.genre}" }
+# filter by some key - value
+movies.filter(director: 'Hayao Miyazaki').each { |e| puts "#{e.title}  #{e.genre}" }
 
-amovie.stats(:director).sort_by { |e| e[0] }.each { |e| puts "#{e[0]} #{e[1].size}" }
+# statistics by some property
+movies.stats(:director).sort_by { |e| e[1].size }.each { |e| puts "#{e[0]} #{e[1].size}" }
+
+# some Output
+puts movies.all.first.main_actors

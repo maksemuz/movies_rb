@@ -13,6 +13,7 @@ require 'date'
     @movies.find_all { |row| row.send(*value.keys).include?(*value.values) }
   end
   def stats(value)
-    @movies.each { |row| row.send(value) }.group_by { |e| e.send(value) } 
+    @movies.each { |row| row.send(value) }.group_by { |e| e.send(value) }
   end
+
 end
