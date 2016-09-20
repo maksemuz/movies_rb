@@ -2,8 +2,8 @@
 
 Encoding.default_external = 'UTF-8'
 
-require './Movie_class.rb'
-require './MovieCollection_class.rb'
+require './movie.rb'
+require './movie_collection.rb'
 require 'ostruct'
 require 'date'
 
@@ -21,17 +21,22 @@ end
 
 movies = MovieCollection.new(movie_file)
 
+#movies.all
+puts movies.all
+
 # sort_by something
-movies.all
-  .sort_by { |e| e.date }
-  .each { |e|  puts "#{e.title} #{e.date}"}
-=end
+movies.sort_by(:date)
+      .each { |e|  puts "#{e.title}, ==== #{e.date}"}
+
 
 # filter by some key - value
-movies.filter(director: 'Hayao Miyazaki').each { |e| puts "#{e.title}  #{e.genre}" }
+movies.filter(genre: "Comedy",year: "2001").each { |e| puts " #{e.year}, #{e.title } #{e.genre}"}
 
 # statistics by some property
-movies.stats(:director).sort_by { |e| e[1].size }.each { |e| puts "#{e[0]} #{e[1].size}" }
+movies.stats(:director).each { |e|  puts "#{e[0]}    #{e[1].count}"}
 
 # some Output
 puts movies.all.first.main_actors
+
+# has_genre?('Comedy')
+movies.all.find_all { |e| puts "#{e.title}, has genre = Comedy?: #{e.has_genre?("Comedy")}" }
