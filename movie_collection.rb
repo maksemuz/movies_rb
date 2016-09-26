@@ -15,21 +15,28 @@ class MovieCollection
   def sort_by(value)
     @movies.sort_by { |e| e.send(value) }
   end
+
   def filter(filters)
-    #filters.reduce(@movies)
-    result = @movies
-    filters.reduce(1) { |res, pair| result=result.find_all { |row| row.send(pair[0]).include?(pair[1].to_s) } }
-    return result
+    filters.reduce(@movies) { |memo, (key,val)| memo.find_all { |row| row.send(key).include?(val.to_s) } }
   end
 
   def stats(value)
-    if value == :actors
-      actors = @movies.map { |e| e.main_actors.split(",") }.flatten
-      stat_actors = Hash[ actors.group_by { |a| a }.map { |name, num| [name,num.count] } ]
-      return stat_actors
+    if value == :genre or value == :main_actors
+      statsarr = @movies.find_all { |movie| movie.send(value) }
+                     .group_by { |e| e.send(value) }
+                     .keys.flatten
+                     .group_by{|i| i}
+                     .map{|k,v| [k, v.count] }
+
+      return statsarr
     else
-      @movies.find_all { |row| row.send(value) }.group_by { |e| e.send(value) }
+      statsarr = @movies.find_all { |movie| movie.send(value) }
+                     .group_by { |e| e.send(value) }
+                     .map{|k,v| [k, v.count] }
+      return statsarr
     end
+
+
   end
 
 end

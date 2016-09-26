@@ -10,7 +10,7 @@ require 'date'
 
 if ARGV.length == 0
   puts "\n\nYou did not enter filename. Using movies.txt\n\n"
-  movie_file = "movies.txt"
+  movie_file = "./movies.txt"
 else
     movie_file = ARGV[0]
 end
@@ -22,18 +22,17 @@ end
 movies = MovieCollection.new(movie_file)
 
 #movies.all
-puts movies.all
+movies.all.each {|movie| puts "#{movie.title}"}
 
 # sort_by something
-movies.sort_by(:date)
-      .each { |e|  puts "#{e.title}, ==== #{e.date}"}
+movies.sort_by(:date).each { |movie| puts "#{movie.title} #{movie.date}" }
 
 
 # filter by some key - value
-movies.filter(genre: "Comedy",year: "2001").each { |e| puts " #{e.year}, #{e.title } #{e.genre}"}
+movies.filter(genre: "Comedy",year: 2009).each { |e| puts " #{e.year}, \"#{e.title }\", #{e.genre}"}
 
 # statistics by some property
-movies.stats(:director).each { |e|  puts "#{e[0]}    #{e[1].count}"}
+puts movies.stats(:year)
 
 # some Output
 puts movies.all.first.main_actors
