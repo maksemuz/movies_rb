@@ -35,7 +35,8 @@ movies.filter(genre: "Comedy",year: 2009).each { |e| puts " #{e.year}, \"#{e.tit
 puts movies.stats(:year)
 
 # some Output
-puts movies.all.first.main_actors
-
+puts movies.all.first.date
+=begin
 # has_genre?('Comedy')
 movies.all.find_all { |e| puts "#{e.title}, has genre = Comedy?: #{e.has_genre?("Comedy")}" }
+=end

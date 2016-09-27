@@ -8,16 +8,23 @@ class Movie
     @title = title
     @year = year
     @country = country
-    @date = date.split("-")
+    if date.split("-").size == 3
+      @date = Date.parse(date)
+    elsif date.split("-").size == 2
+      #throw date
+      @date = Date.strptime(date,'%Y-%m')
+    else
+      @date = Date.strptime(date,'%Y')
+    end
     @genre = genre.split(",")
     @duration = duration
     @rating = rating
     @director = director
     @main_actors = main_actors.split(",")
-    if @date[1] != nil
-      @month = Date::MONTHNAMES[@date[1].to_i]
+    if @date.month
+      @month = Date::MONTHNAMES[@date.month.to_i]
     else
-      @month = "No month in date. Out of statistics"
+      @month = nil
     end
   end
 
