@@ -29,14 +29,16 @@ movies.sort_by(:date).each { |movie| puts "#{movie.title} #{movie.date}" }
 
 
 # filter by some key - value
-movies.filter(genre: "Comedy",year: 2009).each { |e| puts " #{e.year}, \"#{e.title }\", #{e.genre}"}
+
+movies.filter(year: 2001..2010, country: /France|USA/).each { |movie| puts "\"#{movie.title}\", #{movie.year}, #{movie.country}" }
 
 # statistics by some property
-puts movies.stats(:year)
+
+movies.stats(:main_actors).each { |e| puts "#{e[0]}, #{e[1]}" }
+
 
 # some Output
 puts movies.all.first.date
-=begin
+
 # has_genre?('Comedy')
 movies.all.find_all { |e| puts "#{e.title}, has genre = Comedy?: #{e.has_genre?("Comedy")}" }
-=end

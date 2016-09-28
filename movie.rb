@@ -6,7 +6,7 @@ class Movie
   def initialize(link, title, year, country, date, genre, duration, rating, director, main_actors)
     @link = link
     @title = title
-    @year = year
+    @year = year.to_i
     @country = country
     if date.split("-").size == 3
       @date = Date.parse(date)
@@ -34,6 +34,10 @@ class Movie
 
   def has_actor?(value)
     @actor.include?(value)
+  end
+
+  def matches?(key,val)
+    return (val === self.send(key))
   end
 
 end

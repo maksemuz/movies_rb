@@ -17,25 +17,15 @@ class MovieCollection
   end
 
   def filter(filters)
-    filters.reduce(@movies) { |memo, (key,val)| memo.find_all { |row| row.send(key).include?(val.to_s) } }
+    filters.reduce(@movies) { |memo, (key,val)| memo.find_all { |row| row.matches?(key,val) } }
   end
 
   def stats(value)
-    if value == :genre or value == :main_actors
-      statsarr = @movies.find_all { |movie| movie.send(value) }
-                     .group_by { |e| e.send(value) }
-                     .keys.flatten
-                     .group_by{|i| i}
-                     .map{|k,v| [k, v.count] }
-
-      return statsarr
-    else
-      statsarr = @movies.find_all { |movie| movie.send(value) }
-                     .group_by { |e| e.send(value) }
+      statsarr = @movies.map { |e| e.send(value) }
+                     .flatten
+                     .group_by(&:itself)
                      .map{|k,v| [k, v.count] }
       return statsarr
-    end
-
 
   end
 
