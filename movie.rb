@@ -1,7 +1,7 @@
 require 'date'
 
 class Movie
-  attr_reader :link, :title, :year, :country, :date, :month, :genre, :duration, :rating, :director, :main_actors
+  attr_reader :link, :title, :year, :country, :date, :genre, :duration, :rating, :director, :main_actors
 
   def initialize(link, title, year, country, date, genre, duration, rating, director, main_actors)
     @link = link
@@ -9,23 +9,25 @@ class Movie
     @year = year.to_i
     @country = country
     @date = case date.split("-").size
-              when date.split("-").size == 3
-                Date.parse(date)
-              when date.split("-").size == 2
-                Date.strptime(date,'%Y-%m')
-              when date.split("-").size == 1
-                Date.strptime(date,'%Y')
-            end
-    puts @date
+      when 3
+        Date.parse(date)
+      when 2
+        Date.strptime(date,'%Y-%m')
+      when 1
+        Date.strptime(date,'%Y')
+    end
     @genre = genre.split(",")
     @duration = duration
     @rating = rating
     @director = director
     @main_actors = main_actors.split(",")
+  end
+
+  def month
     if @date.month
-      @month = Date::MONTHNAMES[@date.month.to_i]
+      Date::MONTHNAMES[@date.month.to_i]
     else
-      @month = nil
+      nil
     end
   end
 
