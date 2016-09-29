@@ -8,14 +8,15 @@ class Movie
     @title = title
     @year = year.to_i
     @country = country
-    if date.split("-").size == 3
-      @date = Date.parse(date)
-    elsif date.split("-").size == 2
-      #throw date
-      @date = Date.strptime(date,'%Y-%m')
-    else
-      @date = Date.strptime(date,'%Y')
-    end
+    @date = case date.split("-").size
+              when date.split("-").size == 3
+                Date.parse(date)
+              when date.split("-").size == 2
+                Date.strptime(date,'%Y-%m')
+              when date.split("-").size == 1
+                Date.strptime(date,'%Y')
+            end
+    puts @date
     @genre = genre.split(",")
     @duration = duration
     @rating = rating
@@ -37,7 +38,7 @@ class Movie
   end
 
   def matches?(key,val)
-    return (val === self.send(key))
+    val === self.send(key)
   end
 
 end

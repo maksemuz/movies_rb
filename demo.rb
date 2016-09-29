@@ -34,11 +34,12 @@ movies.filter(year: 2001..2010, country: /France|USA/).each { |movie| puts "\"#{
 
 # statistics by some property
 
-movies.stats(:main_actors).each { |e| puts "#{e[0]}, #{e[1]}" }
+movies.stats(:month).each { |e| puts "#{e[0]}, #{e[1]}" }
 
-
+=begin
 # some Output
 puts movies.all.first.date
 
 # has_genre?('Comedy')
 movies.all.find_all { |e| puts "#{e.title}, has genre = Comedy?: #{e.has_genre?("Comedy")}" }
+=end
