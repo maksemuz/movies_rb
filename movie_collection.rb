@@ -6,13 +6,12 @@ class MovieCollection
     @file_name = file_name
     @movies = CSV.readlines(@file_name,col_sep: '|')
       .map { |row| Movie.new(*row)}
-
     collection = @movies.map { |movie| movie.genre }
                      .flatten
                      .group_by(&:itself)
                      .keys
+    @movies.each { |movie| movie.send_coll(collection) }
 
-    @movies.each { |movie| movie.coll_genres(collection) }
   end
 
   def all
