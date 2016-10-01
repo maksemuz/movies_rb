@@ -31,8 +31,13 @@ class Movie
     end
   end
 
+  def coll_genres(arr)
+    @collection = arr
+  end
+
   def has_genre?(value)
-    @genre.include?(value)
+    raise "Error. There's no such genre: \"#{value}\"." unless @collection.include?(value)
+    genre.include?(value)
   end
 
   def has_actor?(value)

@@ -6,6 +6,13 @@ class MovieCollection
     @file_name = file_name
     @movies = CSV.readlines(@file_name,col_sep: '|')
       .map { |row| Movie.new(*row)}
+
+    collection = @movies.map { |movie| movie.genre }
+                     .flatten
+                     .group_by(&:itself)
+                     .keys
+
+    @movies.each { |movie| movie.coll_genres(collection) }
   end
 
   def all
@@ -26,19 +33,6 @@ class MovieCollection
                      .group_by(&:itself)
                      .map{|k,v| [k, v.count] }
       return statsarr
-
-  end
-
-  def has_genre?(req_gnr)
-    genre_array = @movies.map { |movie| movie.genre }
-        .flatten
-        .group_by(&:itself)
-        .keys
-    if genre_array.include?(req_gnr) == false
-      raise "There is no such genre: #{req_gnr}"
-    else
-      @movies.each { |movie| puts "#{movie.title}, has genre = Comedy?: #{movie.has_genre?("Comedy")}" }
-    end
 
   end
 
