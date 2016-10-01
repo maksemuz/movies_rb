@@ -41,7 +41,7 @@ movies.stats(:month).each { |e| puts "#{e[0]}, #{e[1]}" }
 puts movies.all.first.date
 
 # has_genre?('Comedy')
-movies.all.find_all { |e| puts "#{e.title}, has genre = Comedy?: #{e.has_genre?("Comedy")}" }
+#movies.all.find_all { |e| puts "#{e.title}, has genre = Comedy?: #{e.has_genre?("Comedy")}" }
 
 #throwing exception
-print movies.has_genre?('Comeedy')
+movies.has_genre?('Comedddy')

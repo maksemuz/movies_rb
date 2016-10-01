@@ -36,7 +36,10 @@ class MovieCollection
         .keys
     if genre_array.include?(req_gnr) == false
       raise "There is no such genre: #{req_gnr}"
+    else
+      @movies.each { |movie| puts "#{movie.title}, has genre = Comedy?: #{movie.has_genre?("Comedy")}" }
     end
+
   end
 
 end
