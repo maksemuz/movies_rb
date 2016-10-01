@@ -1,9 +1,9 @@
 require 'date'
 
 class Movie
-  attr_reader :link, :title, :year, :country, :date, :genre, :duration, :rating, :director, :main_actors
+  attr_reader :link, :title, :year, :country, :date, :genre, :duration, :rating, :director, :main_actors, :collection
 
-  def initialize(link, title, year, country, date, genre, duration, rating, director, main_actors)
+  def initialize(link, title, year, country, date, genre, duration, rating, director, main_actors, collection)
     @link = link
     @title = title
     @year = year.to_i
@@ -21,6 +21,7 @@ class Movie
     @rating = rating
     @director = director
     @main_actors = main_actors.split(',')
+    @collection = collection
   end
 
   def month
@@ -29,10 +30,6 @@ class Movie
     else
       nil
     end
-  end
-
-  def coll_genres(arr)
-    @collection = arr
   end
 
   def has_genre?(value)
