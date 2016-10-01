@@ -8,7 +8,7 @@ class Movie
     @title = title
     @year = year.to_i
     @country = country
-    @date = case date.split("-").size
+    @date = case date.split('-').size
       when 3
         Date.parse(date)
       when 2
@@ -16,11 +16,11 @@ class Movie
       when 1
         Date.strptime(date,'%Y')
     end
-    @genre = genre.split(",")
+    @genre = genre.split(',')
     @duration = duration
     @rating = rating
     @director = director
-    @main_actors = main_actors.split(",")
+    @main_actors = main_actors.split(',')
   end
 
   def month

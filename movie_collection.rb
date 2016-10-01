@@ -29,4 +29,14 @@ class MovieCollection
 
   end
 
+  def has_genre?(req_gnr)
+    genre_array = @movies.map { |movie| movie.genre }
+        .flatten
+        .group_by(&:itself)
+        .keys
+    if genre_array.include?(req_gnr) == false
+      raise "There is no such genre: #{req_gnr}"
+    end
+  end
+
 end

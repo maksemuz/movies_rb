@@ -42,3 +42,6 @@ puts movies.all.first.date
 
 # has_genre?('Comedy')
 movies.all.find_all { |e| puts "#{e.title}, has genre = Comedy?: #{e.has_genre?("Comedy")}" }
+
+#throwing exception
+print movies.has_genre?('Comeedy')
