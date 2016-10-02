@@ -33,8 +33,7 @@ class Movie
   end
 
   def has_genre?(value)
-    @collection = collection.all.map { |movie| movie.genre}.flatten.group_by(&:itself).keys
-    raise "Error. There's no such genre: \"#{value}\"." unless @collection.include?(value)
+    raise "Error. There's no such genre: \"#{value}\"." unless @collection.genres.include?(value)
     genre.include?(value)
   end
 
