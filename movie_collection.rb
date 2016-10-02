@@ -10,8 +10,7 @@ class MovieCollection
   end
 
   def genres
-    result = result || @movies.each.map { |movie| movie.genre}.flatten.group_by(&:itself).keys
-    return result
+    @genres ||=  @movies.each.map { |movie| movie.genre}.flatten.group_by(&:itself).keys
   end
 
   def all
