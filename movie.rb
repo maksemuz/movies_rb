@@ -1,7 +1,7 @@
 require 'date'
 
 class Movie
-  attr_reader :link, :title, :year, :country, :date, :genre, :duration, :rating, :director, :main_actors, :collection
+  attr_reader :link, :title, :year, :country, :date, :genre, :duration, :rating, :director, :main_actors, :collection, :period
 
   def initialize(link, title, year, country, date, genre, duration, rating, director, main_actors, collection)
     @link = link
@@ -17,11 +17,20 @@ class Movie
         Date.strptime(date,'%Y')
     end
     @genre = genre.split(',')
-    @duration = duration
+    @duration = duration.to_i
     @rating = rating
     @director = director
     @main_actors = main_actors.split(',')
     @collection = collection
+    if @year <= 1945
+      @period = "ancient"
+    elsif @year > 1945 && @year <= 1968
+      @period = "classic"
+    elsif @year > 1968 && @year <= 2000
+      @period = "modern"
+    else
+      @period = "new"
+    end
   end
 
   def month
@@ -42,7 +51,11 @@ class Movie
   end
 
   def matches?(key,val)
-    val === self.send(key)
+    if self.send(key).is_a?(Array)
+      self.send(key).include?(val)
+    else
+      val === self.send(key)
+    end
   end
 
 end

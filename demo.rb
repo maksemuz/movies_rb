@@ -4,6 +4,8 @@ Encoding.default_external = 'UTF-8'
 
 require './movie.rb'
 require './movie_collection.rb'
+require './netflix.rb'
+require './theatre.rb'
 require 'ostruct'
 require 'date'
 
@@ -29,16 +31,31 @@ movies.sort_by(:date).each { |movie| puts "#{movie.title} #{movie.date}" }
 
 
 # filter by some key - value
-
-movies.filter(year: 2001..2010, country: /France|USA/).each { |movie| puts "\"#{movie.title}\", #{movie.year}, #{movie.country}" }
+puts "\n\n### filter by some key - value\n\n"
+movies.filter(period: 'new', genre: 'Comedy').each { |movie| puts "\"#{movie.title}\", #{movie.year}, #{movie.genre}" }
 
 # statistics by some property
 
-movies.stats(:month).each { |e| puts "#{e[0]}, #{e[1]}" }
+#movies.stats(:month).each { |e| puts "#{e[0]}, #{e[1]}" }
 
 
 # some Output
-puts movies.all.first.date
+#puts movies.all.first.date
 
 # has_genre?('Comedy')
-movies.all.find_all { |e| puts "#{e.title}, #{e.genre}, #{e.has_genre?("Comeadafsfdsdy")}" }
+#movies.all.find_all { |e| puts "#{e.title}, #{e.genre}, #{e.has_genre?("Comedy")}" }
+
+#movie_file = "./movies.txt"
+puts "\n\n### The Netflix show ###\n"
+netflix = Netflix.new(movie_file)
+puts netflix.how_much?("The Terminator")
+
+puts "\n\n###### The Theatre show ######\n---------------------------------\n"
+
+movie_file = "./movies.txt"
+theatre = Theatre.new(movie_file)
+puts theatre.show(10)
+
+puts "\n\n###### The Theatre when ######\n---------------------------------\n"
+
+theatre.when?("The Wizard of Oz")
