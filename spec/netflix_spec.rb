@@ -1,6 +1,9 @@
 require './movie.rb'
 require './movie_collection.rb'
-require './netflix.rb'
+require './netflix.rb'\
+
+Encoding.default_external = 'UTF-8'
+
 describe Netflix do
   movie_file = "./movies.txt"
   netflix = Netflix.new(movie_file)

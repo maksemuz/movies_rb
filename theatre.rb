@@ -25,14 +25,14 @@ class Theatre < MovieCollection
   def when?(movie_name)
     movie = self.all.find { |val| val.title == movie_name}
     if @morning_films.include?(movie)
-      puts " #{movie_name}. You can watch it at morning time, 8:00 - 12:00"
+      out = "#{movie_name}. You can watch it at morning time, 8:00 - 12:00"
     elsif @noon_films.include?(movie)
-      puts " #{movie_name}. You can watch it at noon time, 12:00 - 16:00"
+      out = "#{movie_name}. You can watch it at noon time, 12:00 - 16:00"
     elsif @evening_films.include?(movie)
-      puts " #{movie_name}. You can watch it at evening time, 16:00 - 22:00"
+      out = "#{movie_name}. You can watch it at evening time, 16:00 - 22:00"
     else
       raise "#{movie_name} - this film is out of time or even not a film."
     end
-
+    out
   end
 end

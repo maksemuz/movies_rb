@@ -58,4 +58,5 @@ puts theatre.show(10)
 
 puts "\n\n###### The Theatre when ######\n---------------------------------\n"
 
-theatre.when?("The Wizard of Oz")
+puts theatre.when?("The Wizard of Oz")
+puts theatre.when?("The Wizard of Oz").class
