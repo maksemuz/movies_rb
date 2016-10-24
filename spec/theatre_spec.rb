@@ -18,5 +18,6 @@ describe Theatre do
     movie_file = "./movies.txt"
     theatre = Theatre.new(movie_file)
     expect(theatre.when?("The Wizard of Oz")).to match("8:00 - 12:00")
+    expect(theatre.when?("The Wizard of Oz")).to be_a String
   end
 end
