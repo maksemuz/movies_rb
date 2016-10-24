@@ -8,7 +8,6 @@ describe Netflix do
   movie_file = "./movies.txt"
   netflix = Netflix.new(movie_file)
   amount = 25
-  movie = "The Terminator"
 
   it '.pay ' do
     netflix.pay(amount)
@@ -16,7 +15,9 @@ describe Netflix do
   end
 
   it '.how_much' do
+    movie = "The Terminator"
     expect(netflix.how_much?(movie)).to eq(3)
+    expect {netflix.how_much?("Very special film")}.to raise_error("There is no such film in our collection. Sorry.")
   end
 
   it '.show' do
