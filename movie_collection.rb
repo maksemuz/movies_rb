@@ -25,7 +25,7 @@ class MovieCollection
   end
 
   def stats(value)
-      statsarr = @movies.map { |movie| movie.send(value) }
+      @movies.map { |movie| movie.send(value) }
                      .flatten
                      .group_by(&:itself)
                      .map{|k,v| [k, v.count] }

@@ -1,11 +1,7 @@
 require 'date'
-require './ancient_movie.rb'
-require './classic_movie.rb'
-require './modern_movie.rb'
-require './new_movie.rb'
 
 class Movie
-  attr_reader :link, :title, :year, :country, :date, :genre, :duration, :rating, :director, :main_actors, :collection, :period
+  attr_reader :link, :title, :year, :country, :date, :genre, :duration, :rating, :director, :main_actors, :collection
 
   def initialize(link, title, year, country, date, genre, duration, rating, director, main_actors, collection)
     @link = link
@@ -57,14 +53,19 @@ class Movie
   def self.create(link, title, year, country, date, genre, duration, rating, director, main_actors, collection)
 
     if year.to_i <= 1945
-      AncientMovie.new
+      AncientMovie.new(link, title, year, country, date, genre, duration, rating, director, main_actors, collection)
     elsif year.to_i > 1945 && year.to_i <= 1968
-      ClassicMovie.new
+      ClassicMovie.new(link, title, year, country, date, genre, duration, rating, director, main_actors, collection)
     elsif year.to_i > 1968 && year.to_i <= 2000
-      ModernMovie.new
+      ModernMovie.new(link, title, year, country, date, genre, duration, rating, director, main_actors, collection)
     else
-      NewMovie.new
+      NewMovie.new(link, title, year, country, date, genre, duration, rating, director, main_actors, collection)
     end
   end
 
 end
+
+require './ancient_movie.rb'
+require './classic_movie.rb'
+require './modern_movie.rb'
+require './new_movie.rb'
