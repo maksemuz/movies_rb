@@ -5,7 +5,7 @@ class ModernMovie < Movie
     super(link, title, year, country, date, genre, duration, rating, director, main_actors, collection)
     @price = 3
     @period = 'modern'
-    @output = "#{self.title} — современное кино: играют #{self.main_actors}"
+    @output = "#{self.title} — современное кино: играют #{self.main_actors * ", "}"
   end
 
 end

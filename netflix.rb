@@ -12,7 +12,7 @@ class Netflix < MovieCollection
     dur = to_watch.duration
     start_time = Time.now;
     end_time = start_time + (dur * 60);
-    puts "Now showing: \"#{to_watch.output}\" - #{start_time.strftime("%H:%M")} - #{end_time.strftime("%H:%M")}"
+    puts "Now showing: #{to_watch.output}. #{start_time.strftime("%H:%M")} - #{end_time.strftime("%H:%M")}"
     puts "Price is #{to_watch.price}. Now your balance is: #{@money - to_watch.price}"
     to_watch
   end

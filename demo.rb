@@ -27,7 +27,7 @@ end
 movies = MovieCollection.new(movie_file)
 
 # sort_by something
-#movies.sort_by(:date).each { |movie| puts "#{movie.title} #{movie.date}" }
+#movies.sort_by(:director).each { |movie| puts "#{movie.title} #{movie.date}" }
 
 # statistics by some property
 
@@ -45,6 +45,10 @@ puts "\n\n### The Netflix show ###\n"
 netflix = Netflix.new(movie_file)
 #puts netflix.how_much?("The Terminator")
 #puts netflix.show(period: 'classic', genre: 'Comedy').inspect
+netflix.all.each { |movie| puts "#{movie.director}"}
+
+
+
 
 =begin
 puts "\n\n###### The Theatre show ######\n---------------------------------\n"
@@ -57,8 +61,10 @@ puts "\n\n###### The Theatre when ######\n---------------------------------\n"
 
 puts theatre.when?("The Wizard of Oz")
 puts theatre.when?("The Wizard of Oz").class
-=end
+
 
 #movies.all
 puts "\n\n### all show ###\n"
 movies.all.each {|movie| puts "#{movie.output}"}
+
+=end
