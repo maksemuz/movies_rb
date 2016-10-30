@@ -1,9 +1,10 @@
+
 class Theatre < MovieCollection
   def initialize (movie_file)
     super(movie_file)
-    @morning_films = self.filter(period: 'ancient')
-    @noon_films = self.filter(genre: 'Adventure') + self.filter(genre: 'Comedy')
-    @evening_films = self.filter(genre: 'Drama') + self.filter(genre: 'Horror')
+    @morning_films = filter(period: 'ancient')
+    @noon_films = filter(genre: 'Adventure') + filter(genre: 'Comedy')
+    @evening_films =filter(genre: 'Drama') + filter(genre: 'Horror')
   end
 
   def show(time)
@@ -19,7 +20,6 @@ class Theatre < MovieCollection
     to_watch = Random.new.rand(0...films.size-1)
     puts "Now showing: \"#{films[to_watch].title}\",  #{films[to_watch].genre}, duration: #{films[to_watch].duration} min."
     return films[to_watch]
-
   end
 
   def when?(movie_name)

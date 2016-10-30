@@ -1,4 +1,8 @@
 require 'date'
+require './ancient_movie.rb'
+require './classic_movie.rb'
+require './modern_movie.rb'
+require './new_movie.rb'
 
 class Movie
   attr_reader :link, :title, :year, :country, :date, :genre, :duration, :rating, :director, :main_actors, :collection, :period
@@ -22,15 +26,7 @@ class Movie
     @director = director
     @main_actors = main_actors.split(',')
     @collection = collection
-    if @year <= 1945
-      @period = "ancient"
-    elsif @year > 1945 && @year <= 1968
-      @period = "classic"
-    elsif @year > 1968 && @year <= 2000
-      @period = "modern"
-    else
-      @period = "new"
-    end
+
   end
 
   def month
@@ -55,6 +51,19 @@ class Movie
       self.send(key).include?(val)
     else
       val === self.send(key)
+    end
+  end
+
+  def self.create(link, title, year, country, date, genre, duration, rating, director, main_actors, collection)
+
+    if year.to_i <= 1945
+      AncientMovie.new
+    elsif year.to_i > 1945 && year.to_i <= 1968
+      ClassicMovie.new
+    elsif year.to_i > 1968 && year.to_i <= 2000
+      ModernMovie.new
+    else
+      NewMovie.new
     end
   end
 

@@ -5,8 +5,7 @@ class MovieCollection
   def initialize(file_name)
     @file_name = file_name
     @movies = CSV.readlines(@file_name,col_sep: '|')
-      .map { |row| Movie.new(*row,self)}
-
+      .map { |row| Movie.create(*row,self)}
   end
 
   def genres
@@ -30,8 +29,6 @@ class MovieCollection
                      .flatten
                      .group_by(&:itself)
                      .map{|k,v| [k, v.count] }
-      return statsarr
-
   end
 
 end

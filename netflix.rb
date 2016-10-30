@@ -5,7 +5,6 @@ class Netflix < MovieCollection
   def initialize(movie_file)
     super(movie_file)
     @money = 10.0
-    @price = {"ancient" => 1,"classic" => 1.5,"modern" => 3,"new" => 5}
   end
 
   def show(parameters)
