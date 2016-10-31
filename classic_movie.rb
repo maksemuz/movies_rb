@@ -9,8 +9,8 @@ class ClassicMovie < Movie
   end
 
   def output
-    @films = @collection.filter(director: self.director).take(10).map { |movie| movie.title}
-    @output = "#{self.title} — классический фильм, режиссёр #{self.director} (#{@films * ", "})"
+    @films = @collection.filter(director: self.director).take(10).map { |movie| movie.title} * ", "
+    @output = "#{self.title} — классический фильм, режиссёр #{self.director} (#{@films})"
   end
 
 end

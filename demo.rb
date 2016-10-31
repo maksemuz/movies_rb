@@ -33,7 +33,7 @@ movies = MovieCollection.new(movie_file)
 
 #movies.stats(:month).each { |e| puts "#{e[0]}, #{e[1]}" }
 
-
+=begin
 # some Output
 #puts movies.all.first.date
 
@@ -47,15 +47,15 @@ netflix = Netflix.new(movie_file)
 #puts netflix.show(period: 'classic', genre: 'Comedy').inspect
 netflix.all.each { |movie| puts "#{movie.director}"}
 
+=end
 
 
 
-=begin
 puts "\n\n###### The Theatre show ######\n---------------------------------\n"
 
 movie_file = "./movies.txt"
 theatre = Theatre.new(movie_file)
-puts theatre.show(10)
+theatre.show(20)
 
 puts "\n\n###### The Theatre when ######\n---------------------------------\n"
 
@@ -64,7 +64,6 @@ puts theatre.when?("The Wizard of Oz").class
 
 
 #movies.all
-puts "\n\n### all show ###\n"
-movies.all.each {|movie| puts "#{movie.output}"}
+#puts "\n\n### all show ###\n"
+#movies.all.each {|movie| puts "#{movie.output}"}
 
-=end
