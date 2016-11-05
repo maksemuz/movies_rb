@@ -21,7 +21,8 @@ class MovieCollection
   end
 
   def filter(filters)
-    filters.reduce(@movies) { |memo, (key,val)| memo.find_all { |row| row.matches?(key,val) } }
+    filters.reduce(@movies) { |memo, (key,val)|
+      memo.find_all { |row| row.matches?(key,val) } }
   end
 
   def stats(value)

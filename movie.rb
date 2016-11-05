@@ -43,24 +43,28 @@ class Movie
   end
 
   def matches?(key,val)
-    if self.send(key).is_a?(Array)
-      self.send(key).include?(val)
+    if send(key).is_a?(Array)
+      send(key).include?(val)
     else
-      val === self.send(key)
+      val === send(key)
     end
   end
 
   def self.create(link, title, year, country, date, genre, duration, rating, director, main_actors, collection)
-
-    if year.to_i <= 1945
-      AncientMovie.new(link, title, year, country, date, genre, duration, rating, director, main_actors, collection)
-    elsif year.to_i > 1945 && year.to_i <= 1968
-      ClassicMovie.new(link, title, year, country, date, genre, duration, rating, director, main_actors, collection)
-    elsif year.to_i > 1968 && year.to_i <= 2000
-      ModernMovie.new(link, title, year, country, date, genre, duration, rating, director, main_actors, collection)
-    else
-      NewMovie.new(link, title, year, country, date, genre, duration, rating, director, main_actors, collection)
+    case year.to_i
+      when (1900...1945)
+        AncientMovie.new(link, title, year, country, date, genre, duration, rating, director, main_actors, collection)
+      when (1945...1968)
+        ClassicMovie.new(link, title, year, country, date, genre, duration, rating, director, main_actors, collection)
+      when (1968...2000)
+        ModernMovie.new(link, title, year, country, date, genre, duration, rating, director, main_actors, collection)
+      else
+        NewMovie.new(link, title, year, country, date, genre, duration, rating, director, main_actors, collection)
     end
+  end
+
+  def period
+    self.class.name.sub(/Movie/,'').downcase
   end
 
 end

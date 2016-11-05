@@ -17,11 +17,11 @@ describe Netflix do
   it '.how_much' do
     movie = "The Terminator"
     expect(netflix.how_much?(movie)).to eq(3)
-    expect {netflix.how_much?("Very special film")}.to raise_error("There is no such film in our collection. Sorry.")
+    expect {netflix.how_much?("Very special film")}.to raise_error( ArgumentError, "There is no film named Very special film in our collection. Sorry.")
   end
 
   it '.show' do
-    expect(netflix.show(period: 'new', genre: 'Comedy').genre).to include('Comedy')
+    expect(netflix.show(period: 'news', genre: 'Comedy').genre).to include('Comedy')
 
   end
 

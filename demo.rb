@@ -56,11 +56,10 @@ puts "\n\n###### The Theatre show ######\n---------------------------------\n"
 movie_file = "./movies.txt"
 theatre = Theatre.new(movie_file)
 theatre.show(20)
+#puts "\n\n###### The Theatre when ######\n---------------------------------\n"
 
-puts "\n\n###### The Theatre when ######\n---------------------------------\n"
-
-puts theatre.when?("The Wizard of Oz")
-puts theatre.when?("The Wizard of Oz").class
+#puts theatre.when?("The Wizard of Oz")
+#puts theatre.when?("The Wizard of Oz").class
 
 
 #movies.all
