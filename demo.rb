@@ -49,18 +49,15 @@ netflix.all.each { |movie| puts "#{movie.director}"}
 
 =end
 
-
-
-puts "\n\n###### The Theatre show ######\n---------------------------------\n"
-
 movie_file = "./movies.txt"
 theatre = Theatre.new(movie_file)
-theatre.show(20)
-#puts "\n\n###### The Theatre when ######\n---------------------------------\n"
 
-#puts theatre.when?("The Wizard of Oz")
-#puts theatre.when?("The Wizard of Oz").class
+#puts "\n\n###### The Theatre show ######\n---------------------------------\n"
+#theatre.show(20)
 
+puts "\n\n###### The Theatre when ######\n---------------------------------\n"
+puts theatre.when?("Downfall")
+puts theatre.when?("The Wizard of Oz")
 
 #movies.all
 #puts "\n\n### all show ###\n"
