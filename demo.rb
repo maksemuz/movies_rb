@@ -41,7 +41,7 @@ puts movies.get_rnd_film(films)
 
 # has_genre?('Comedy')
 #movies.all.find_all { |e| puts "#{e.title}, #{e.genre}, #{e.has_genre?("Comedy")}" }
-=end
+
 
 
 movie_file = "./movies.txt"
@@ -52,18 +52,18 @@ netflix.show(period: 'classic')
 
 #netflix.all.each { |movie| puts "#{movie.director}"}
 
+=end
 
+movie_file = "./movies.txt"
+theatre = Theatre.new(movie_file)
 
-#movie_file = "./movies.txt"
-#theatre = Theatre.new(movie_file)
+puts "\n\n###### The Theatre show ######\n---------------------------------\n"
+theatre.show(20)
 
-#puts "\n\n###### The Theatre show ######\n---------------------------------\n"
-#theatre.show(20)
-
-#puts "\n\n###### The Theatre when ######\n---------------------------------\n"
-#puts theatre.when?("Downfall")
-#puts theatre.when?("The Wizard of Oz")
-
+puts "\n\n###### The Theatre when ######\n---------------------------------\n"
+puts theatre.when?("Downfall")
+puts theatre.when?("The Wizard of Oz")
+puts theatre.when?("The Terminator")
 #movies.all
 #puts "\n\n### all show ###\n"
 #movies.all.each {|movie| puts "#{movie.output}"}
