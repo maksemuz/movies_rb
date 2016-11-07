@@ -6,10 +6,12 @@ class Theatre < MovieCollection
               12...18 => [{genre: 'Adventure'},{genre:'Comedy'}],
               18...24 => [{genre: 'Horror'}, {genre: 'Drama'}]}
 
+
   def show(time)
     params = SCHEDULE.find { |key,val| val if (key).include?(time) }
     raise ArgumentError,'There are no films to watch at this time. Sorry.' unless params
-    to_watch = params[1].map { |param| filter(param)}.flatten.sample
+    films = params[1].map { |param| filter(param)}.flatten
+    to_watch = get_rnd_film(films)
     puts "Now showing: \"#{to_watch.title}\",  #{to_watch.genre * ", "}, duration: #{to_watch.duration} min."
     to_watch
   end

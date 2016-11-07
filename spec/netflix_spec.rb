@@ -21,7 +21,7 @@ describe Netflix do
   end
 
   it '.show' do
-    expect(netflix.show(period: 'news', genre: 'Comedy').genre).to include('Comedy')
+    expect(netflix.show(period: 'new', genre: 'Comedy').genre).to include('Comedy')
 
   end
 

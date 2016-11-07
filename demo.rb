@@ -32,32 +32,37 @@ movies = MovieCollection.new(movie_file)
 # statistics by some property
 
 #movies.stats(:month).each { |e| puts "#{e[0]}, #{e[1]}" }
-
 =begin
+films = movies.filter(period: 'classic')
+puts movies.get_rnd_film(films)
+
 # some Output
 #puts movies.all.first.date
 
 # has_genre?('Comedy')
 #movies.all.find_all { |e| puts "#{e.title}, #{e.genre}, #{e.has_genre?("Comedy")}" }
-
-#movie_file = "./movies.txt"
-puts "\n\n### The Netflix show ###\n"
-netflix = Netflix.new(movie_file)
-#puts netflix.how_much?("The Terminator")
-#puts netflix.show(period: 'classic', genre: 'Comedy').inspect
-netflix.all.each { |movie| puts "#{movie.director}"}
-
 =end
 
+
 movie_file = "./movies.txt"
-theatre = Theatre.new(movie_file)
+puts "\n\n###### The Netflix show ######\n---------------------------------\n"
+netflix = Netflix.new(movie_file)
+#puts netflix.how_much?("The Terminator")
+netflix.show(period: 'classic')
+
+#netflix.all.each { |movie| puts "#{movie.director}"}
+
+
+
+#movie_file = "./movies.txt"
+#theatre = Theatre.new(movie_file)
 
 #puts "\n\n###### The Theatre show ######\n---------------------------------\n"
 #theatre.show(20)
 
-puts "\n\n###### The Theatre when ######\n---------------------------------\n"
-puts theatre.when?("Downfall")
-puts theatre.when?("The Wizard of Oz")
+#puts "\n\n###### The Theatre when ######\n---------------------------------\n"
+#puts theatre.when?("Downfall")
+#puts theatre.when?("The Wizard of Oz")
 
 #movies.all
 #puts "\n\n### all show ###\n"

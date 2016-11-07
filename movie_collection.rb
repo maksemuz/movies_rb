@@ -32,4 +32,21 @@ class MovieCollection
                      .map{|k,v| [k, v.count] }
   end
 
+
+  def get_rnd_film(films)
+    # this method returns the single random movie object
+    # here is triangle distribution of random values, it's taken from this link:
+    # https://habrahabr.ru/post/151187/
+    rate_min = films.sort_by { |film| film.send(:rating) }.first.rating.to_f
+    rate_max = films.sort_by { |film| film.send(:rating) }.last.rating.to_f
+    rnum = Random.new
+    u = rnum.rand(rate_max) / rate_max
+    if u <= 1
+      rate = (rate_min + Math.sqrt(u * ((rate_max - rate_min)**2))).round(1)
+    else
+      rate = rate_max.round(1)
+    end
+    films.find_all { |movie| movie.rating.to_f >= rate}.sample
+  end
+
 end
