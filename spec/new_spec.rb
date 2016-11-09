@@ -19,13 +19,13 @@ describe NewMovie do
 
   its(:long_title)  { is_expected.to include('новинка') }
 
-  context 'get_word' do
-    expect(subject.get_word(21)).to eq('год')
-    expect(subject.get_word(1)).to eq('год')
-    expect(subject.get_word(11)).to eq('лет')
-    expect(subject.get_word(14)).to eq('лет')
-    expect(subject.get_word(23)).to eq('года')
-    expect(subject.get_word(4)).to eq('года')
+  it 'get_word' do
+    movie = MovieCollection.new("./movies.txt").all.find_all { |movie| movie if movie.class == NewMovie}.sample
+    expect(movie.get_word(1)).to eq('год')
+    expect(movie.get_word(11)).to eq('лет')
+    expect(movie.get_word(14)).to eq('лет')
+    expect(movie.get_word(23)).to eq('года')
+    expect(movie.get_word(4)).to eq('года')
   end
 
 
