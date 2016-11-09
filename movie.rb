@@ -18,7 +18,7 @@ class Movie
     end
     @genre = genre.split(',')
     @duration = duration.to_i
-    @rating = rating
+    @rating = rating.to_f
     @director = director
     @main_actors = main_actors.split(',')
     @collection = collection
@@ -65,6 +65,10 @@ class Movie
 
   def period
     self.class.name.sub(/Movie/,'').downcase
+  end
+
+  def price
+    self.class::PRICE
   end
 
 end

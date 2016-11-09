@@ -1,3 +1,4 @@
+require 'rspec/its'
 require './movie.rb'
 require './movie_collection.rb'
 require './netflix.rb'
@@ -5,22 +6,26 @@ require './netflix.rb'
 Encoding.default_external = 'UTF-8'
 
 describe Netflix do
-  movie_file = "./movies.txt"
-  netflix = Netflix.new(movie_file)
-  amount = 25
+  subject do
+    Netflix.new('./movies.txt')
+  end
 
   it '.pay ' do
-    netflix.pay(amount)
-    expect(netflix.money) == "Your balance: $#{amount}"
+    netflix = Netflix.new('./movies.txt')
+    netflix.pay(25)
+    expect(netflix.money).to eq(25)
   end
 
   it '.how_much' do
+    netflix = Netflix.new('./movies.txt')
     movie = "The Terminator"
-    expect(netflix.how_much?(movie)).to eq(3)
-    expect {netflix.how_much?("Very special film")}.to raise_error( ArgumentError, "There is no film named Very special film in our collection. Sorry.")
+    wrong_movie = "Very special film"
+    expect(netflix.how_much?(movie) ).to eq(3)
+    expect {netflix.how_much?(wrong_movie) }.to raise_error( ArgumentError, "There is no film named Very special film in our collection. Sorry.")
   end
 
   it '.show' do
+    netflix = Netflix.new('./movies.txt')
     expect(netflix.show(period: 'new', genre: 'Comedy').genre).to include('Comedy')
 
   end

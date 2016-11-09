@@ -1,3 +1,4 @@
+require 'rspec/its'
 require './movie.rb'
 require './movie_collection.rb'
 require './theatre.rb'

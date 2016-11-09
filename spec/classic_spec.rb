@@ -1,26 +1,22 @@
+require 'rspec/its'
 require './movie.rb'
 require './movie_collection.rb'
 
 Encoding.default_external = 'UTF-8'
 
 describe ClassicMovie do
-  movie_file = "./movies.txt"
-  film = MovieCollection.new(movie_file).all.find_all { |movie| movie if movie.class == ClassicMovie}.sample
-  puts "Title: \"#{film.title}\", Year: #{film.year}, Price: #{film.class::PRICE}"
-
-
-  it 'initialize' do
-    expect(film.class::PRICE) == 1.5
-    expect(film).to be_an(ClassicMovie)
+  subject do
+    MovieCollection.new("./movies.txt").all.find_all { |movie| movie if movie.class == ClassicMovie}.sample
   end
 
-  it 'year' do
-    expect(film.year).to be > 1945
-    expect(film.year).to be <= 1968
-  end
+  it { is_expected.to be_an ClassicMovie }
 
-  it 'long_title' do
-    expect(film.long_title).to be_a(String)
-  end
+  its(:year) { is_expected.to match(1945...1968) }
+
+  its(:price) { is_expected.to eq 1.5 }
+
+  its(:long_title)  { is_expected.to be_a String }
+
+  its(:long_title)  { is_expected.to include('классический фильм') }
 
 end

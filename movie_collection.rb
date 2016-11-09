@@ -37,8 +37,8 @@ class MovieCollection
     # this method returns the single random movie object
     # here is triangle distribution of random values, it's taken from this link:
     # https://habrahabr.ru/post/151187/
-    rate_min = films.sort_by { |film| film.send(:rating) }.first.rating.to_f
-    rate_max = films.sort_by { |film| film.send(:rating) }.last.rating.to_f
+    rate_min = films.min_by(&:rating).rating
+    rate_max = films.max_by(&:rating).rating
     rnum = Random.new
     u = rnum.rand(rate_max) / rate_max
     if u <= 1

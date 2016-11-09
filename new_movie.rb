@@ -2,16 +2,15 @@ require 'date'
 require './movie.rb'
 class NewMovie < Movie
   PRICE = 5
-  def initialize(link, title, year, country, date, genre, duration, rating, director, main_actors, collection)
-    super(link, title, year, country, date, genre, duration, rating, director, main_actors, collection)
-  end
 
-  def get_word(number)
-    if number % 10 == 1 && !(10..20).include?(number)
-      "год"
-    elsif (2..4).include?(number % 10) && !(12..14).include?(number)
-      "года"
-    else
+  def get_word(years)
+    return 'лет' if (11..19).include?(years)
+    case years % 10
+      when 1
+        "год"
+      when 2..4
+        "года"
+      else
         "лет"
     end
   end
