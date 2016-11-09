@@ -17,11 +17,12 @@ class Movie
         Date.strptime(date,'%Y')
     end
     @genre = genre.split(',')
-    @duration = duration
-    @rating = rating
+    @duration = duration.to_i
+    @rating = rating.to_f
     @director = director
     @main_actors = main_actors.split(',')
     @collection = collection
+
   end
 
   def month
@@ -42,7 +43,37 @@ class Movie
   end
 
   def matches?(key,val)
-    val === self.send(key)
+    if send(key).is_a?(Array)
+      send(key).include?(val)
+    else
+      val === send(key)
+    end
+  end
+
+  def self.create(link, title, year, country, date, genre, duration, rating, director, main_actors, collection)
+    case year.to_i
+      when (1900...1945)
+        AncientMovie.new(link, title, year, country, date, genre, duration, rating, director, main_actors, collection)
+      when (1945...1968)
+        ClassicMovie.new(link, title, year, country, date, genre, duration, rating, director, main_actors, collection)
+      when (1968...2000)
+        ModernMovie.new(link, title, year, country, date, genre, duration, rating, director, main_actors, collection)
+      else
+        NewMovie.new(link, title, year, country, date, genre, duration, rating, director, main_actors, collection)
+    end
+  end
+
+  def period
+    self.class.name.sub(/Movie/,'').downcase
+  end
+
+  def price
+    self.class::PRICE
   end
 
 end
+
+require './ancient_movie.rb'
+require './classic_movie.rb'
+require './modern_movie.rb'
+require './new_movie.rb'
