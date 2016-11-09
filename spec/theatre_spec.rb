@@ -7,7 +7,7 @@ Encoding.default_external = 'UTF-8'
 
 describe Theatre do
 
-  context '.show' do
+  it '.show' do
     movie_file = './movies.txt'
     theatre = Theatre.new(movie_file)
     expect(theatre.show(21).genre).to include('Drama').or include('Crime').or include('Horror')
@@ -15,7 +15,7 @@ describe Theatre do
     expect {theatre.show(00)}.to raise_error('There are no films to watch at this time. Sorry.')
   end
 
-  context '.when' do
+  it '.when' do
     movie_file = "./movies.txt"
     theatre = Theatre.new(movie_file)
     expect(theatre.when?("The Wizard of Oz")).to match("8:00 - 12:00")
