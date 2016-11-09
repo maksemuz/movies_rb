@@ -10,13 +10,13 @@ describe Netflix do
     Netflix.new('./movies.txt')
   end
 
-  it '.pay ' do
+  context '.pay ' do
     netflix = Netflix.new('./movies.txt')
     netflix.pay(25)
     expect(netflix.money).to eq(25)
   end
 
-  it '.how_much' do
+  context '.how_much' do
     netflix = Netflix.new('./movies.txt')
     movie = "The Terminator"
     wrong_movie = "Very special film"
@@ -24,7 +24,7 @@ describe Netflix do
     expect {netflix.how_much?(wrong_movie) }.to raise_error( ArgumentError, "There is no film named Very special film in our collection. Sorry.")
   end
 
-  it '.show' do
+  context '.show' do
     netflix = Netflix.new('./movies.txt')
     expect(netflix.show(period: 'new', genre: 'Comedy').genre).to include('Comedy')
 

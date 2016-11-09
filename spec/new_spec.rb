@@ -19,7 +19,7 @@ describe NewMovie do
 
   its(:long_title)  { is_expected.to include('новинка') }
 
-  it 'get_word' do
+  context 'get_word' do
     expect(subject.get_word(21)).to eq('год')
     expect(subject.get_word(1)).to eq('год')
     expect(subject.get_word(11)).to eq('лет')
