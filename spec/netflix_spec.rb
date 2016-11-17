@@ -2,32 +2,68 @@ require 'rspec/its'
 require './movie.rb'
 require './movie_collection.rb'
 require './netflix.rb'
+require './cash_box.rb'
 
 Encoding.default_external = 'UTF-8'
 
 describe Netflix do
-  subject do
-    Netflix.new('./movies.txt')
-  end
 
-  it '.pay ' do
-    netflix = Netflix.new('./movies.txt')
-    netflix.pay(25)
-    expect(netflix.money).to eq(25)
-  end
-
-  it '.how_much' do
-    netflix = Netflix.new('./movies.txt')
+  context "kino_online" do
+    kino_online = Netflix.new('./movies.txt')
+    payment = 30
     movie = "The Terminator"
     wrong_movie = "Very special film"
-    expect(netflix.how_much?(movie) ).to eq(3)
-    expect {netflix.how_much?(wrong_movie) }.to raise_error( ArgumentError, "There is no film named Very special film in our collection. Sorry.")
+    it 'pay' do
+      expect(Netflix.pay(payment)).to eq(30)
+    end
+    it 'cash' do
+      expect(Netflix.cash).to eq(30)
+    end
+    it '.show' do
+      expect(kino_online.show(period: 'new', genre: 'Comedy').genre).to include('Comedy')
+    end
+    it '.how_much' do
+      wrong_movie = "Very special film"
+      expect(kino_online.how_much?(movie) ).to eq(3)
+      expect {kino_online.how_much?(wrong_movie) }.to raise_error( ArgumentError, "There is no film named Very special film in our collection. Sorry.")
+    end
+    it 'cash' do
+      expect(Netflix.cash).to eq(30)
+    end
+    it 'take' do
+      expect {Netflix.take("to me")}.to raise_error(ArgumentError,'Your transaction looks criminal and is rejected. Calling the police.')
+      expect(Netflix.take("Bank")).to eq("Transaction was accepted.")
+    end
+
   end
 
-  it '.show' do
-    netflix = Netflix.new('./movies.txt')
-    expect(netflix.show(period: 'new', genre: 'Comedy').genre).to include('Comedy')
+  context "web_cinema" do
+    web_cinema = Netflix.new('./movies.txt')
+    payment = 40
+    movie = "The Terminator"
+    wrong_movie = "Very special film"
+    it 'pay' do
+      expect(Netflix.pay(payment)).to eq(40)
+    end
+    it 'cash' do
+      expect(Netflix.cash).to eq(40)
+    end
+    it '.show' do
+      expect(web_cinema.show(period: 'new', genre: 'Comedy').genre).to include('Comedy')
+    end
+    it '.how_much' do
+      expect(web_cinema.how_much?(movie) ).to eq(3)
+      expect {web_cinema.how_much?(wrong_movie) }.to raise_error( ArgumentError, "There is no film named Very special film in our collection. Sorry.")
+    end
+    it 'cash' do
+      expect(Netflix.cash).to eq(40)
+    end
+    it 'take' do
+      expect {Netflix.take("to me")}.to raise_error(ArgumentError,'Your transaction looks criminal and is rejected. Calling the police.')
+      expect(Netflix.take("Bank")).to eq("Transaction was accepted.")
+    end
 
   end
+
 
 end

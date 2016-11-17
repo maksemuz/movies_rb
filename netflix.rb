@@ -1,10 +1,18 @@
+require './cash_box.rb'
 
 class Netflix < MovieCollection
-  attr_accessor :money
+  extend Cashbox
+
+  attr_accessor :user_account
 
   def initialize(movie_file)
     super(movie_file)
-    @money = 0.0
+    @user_account = 0.0
+  end
+
+  def self.pay(amount)
+      @cash_box ||= 0
+      @cash_box += amount
   end
 
   def show(parameters)
@@ -13,14 +21,11 @@ class Netflix < MovieCollection
     dur = to_watch.duration
     start_time = Time.now
     end_time = start_time + (dur * 60)
-    @money -= to_watch.price
+    #raise ArgumentError, "There is not enough money to watch #{to_watch.title}.\n Your balance is #{@user_account}." unless (@user_account - to_watch.price) >= 0
+    @user_account -= to_watch.price
     puts "Now showing: #{to_watch.long_title}. #{start_time.strftime("%H:%M")} - #{end_time.strftime("%H:%M")}"
-    puts "Price is #{to_watch.price}. Now your balance is: #{@money}"
+    puts "Price is #{to_watch.price}. Now your balance is: #{@user_account}"
     to_watch
-  end
-
-  def pay(amount)
-    @money += amount
   end
 
   def how_much?(movie_name)

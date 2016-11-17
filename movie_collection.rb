@@ -2,6 +2,8 @@ require 'csv'
 
 class MovieCollection
 
+  include Enumerable
+
   def initialize(file_name)
     @file_name = file_name
     @movies = CSV.readlines(@file_name,col_sep: '|')

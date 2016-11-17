@@ -32,7 +32,7 @@ movies = MovieCollection.new(movie_file)
 # statistics by some property
 
 #movies.stats(:month).each { |e| puts "#{e[0]}, #{e[1]}" }
-=begin
+
 films = movies.filter(period: 'classic')
 puts movies.get_rnd_film(films)
 
@@ -45,14 +45,39 @@ puts movies.get_rnd_film(films)
 
 
 movie_file = "./movies.txt"
-puts "\n\n###### The Netflix show ######\n---------------------------------\n"
+
 netflix = Netflix.new(movie_file)
+puts "\n\n###### The Netflix show: netflix ######\n---------------------------------\n"
+Netflix.pay(30)
 #puts netflix.how_much?("The Terminator")
 netflix.show(period: 'classic')
+puts "=====ALL CASH: #{Netflix.cash} "
+
+Netflix.pay(34)
+#puts netflix.how_much?("The Terminator")
+netflix.show(period: 'classic')
+puts "=====ALL CASH: #{Netflix.cash} "
+
+
+
+online = Netflix.new(movie_file)
+puts "\n\n###### The Netflix show: online ######\n---------------------------------\n"
+Netflix.pay(50)
+#puts netflix.how_much?("The Terminator")
+online.show(period: 'new')
+
+puts "=====ALL CASH: #{Netflix.cash} "
+
+Netflix.pay(57)
+#puts netflix.how_much?("The Terminator")
+online.show(period: 'new')
+
+puts "=====ALL CASH: #{Netflix.cash.inspect} "
+
 
 #netflix.all.each { |movie| puts "#{movie.director}"}
 
-=end
+=begin
 
 movie_file = "./movies.txt"
 theatre = Theatre.new(movie_file)
@@ -68,3 +93,4 @@ puts theatre.when?("The Terminator")
 #puts "\n\n### all show ###\n"
 #movies.all.each {|movie| puts "#{movie.output}"}
 
+=end
