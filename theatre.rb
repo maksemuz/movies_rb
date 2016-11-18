@@ -15,9 +15,9 @@ class Theatre < MovieCollection
       18...24 => {genre: 'Drama'}
   }
   PRICE = {
-      8...12 => 3,
-      12...18 => 5,
-      18...24 => 10
+      8...12 =>  Money.from_amount(3,"USD"),
+      12...18 =>  Money.from_amount(5,"USD"),
+      18...24 =>  Money.from_amount(10,"USD")
   }
 
   def price

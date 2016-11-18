@@ -1,7 +1,10 @@
 require 'date'
 require './movie.rb'
+require 'money'
+I18n.enforce_available_locales = false
+
 class NewMovie < Movie
-  PRICE = 5
+  PRICE = Money.from_amount(5, "USD")
 
   def get_word(years)
     return 'лет' if (11..19).include?(years)

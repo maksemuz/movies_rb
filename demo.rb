@@ -11,6 +11,8 @@ require './netflix.rb'
 require './theatre.rb'
 require 'ostruct'
 require 'date'
+require 'money'
+I18n.enforce_available_locales = false
 
 
 if ARGV.length == 0
@@ -45,34 +47,40 @@ puts movies.get_rnd_film(films)
 
 
 movie_file = "./movies.txt"
+payment1 = Money.from_amount(30, "USD")
+payment2 = Money.from_amount(57, "USD")
+payment3 = Money.from_amount(48, "USD")
+payment4 = Money.from_amount(29, "USD")
 
 netflix = Netflix.new(movie_file)
 puts "\n\n###### The Netflix show: netflix ######\n---------------------------------\n"
-Netflix.pay(30)
+netflix.pay(payment1)
 #puts netflix.how_much?("The Terminator")
 netflix.show(period: 'classic')
+puts "======payment: #{payment1.format}"
 puts "=====ALL CASH: #{Netflix.cash} "
 
-Netflix.pay(34)
+netflix.pay(payment2)
 #puts netflix.how_much?("The Terminator")
 netflix.show(period: 'classic')
+puts "======payment: #{payment2.format}"
 puts "=====ALL CASH: #{Netflix.cash} "
 
 
 
 online = Netflix.new(movie_file)
 puts "\n\n###### The Netflix show: online ######\n---------------------------------\n"
-Netflix.pay(50)
+online.pay(payment3)
 #puts netflix.how_much?("The Terminator")
 online.show(period: 'new')
-
+puts "======payment: #{payment3.format}"
 puts "=====ALL CASH: #{Netflix.cash} "
 
-Netflix.pay(57)
+online.pay(payment4)
 #puts netflix.how_much?("The Terminator")
 online.show(period: 'new')
-
-puts "=====ALL CASH: #{Netflix.cash.inspect} "
+puts "======payment: #{payment4.format}"
+puts "=====ALL CASH: #{Netflix.cash }"
 
 
 #netflix.all.each { |movie| puts "#{movie.director}"}

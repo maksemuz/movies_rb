@@ -1,11 +1,18 @@
-require 'money'
 require 'date'
+require 'money'
+I18n.enforce_available_locales = false
 
 module Cashbox
 
   # returns amount of money, for both Netflix and Theatre
   def cash
-    @cash_box
+    @cash_box.format
+  end
+
+  def pay(amount)
+    @cash_box ||= Money.new(0, "USD")
+    @cash_box += amount
+    @cash_box.format
   end
 
   #for theatre, it places money to moneybox, for Theatre only
@@ -14,7 +21,7 @@ module Cashbox
     price = self.price[time]
     @cash_box += price
     puts "You have bought a ticket to \"#{movie_name}\"."
-    return price
+    Money.new(price,"USD").format
 
   end
 

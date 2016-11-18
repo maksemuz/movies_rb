@@ -22,8 +22,8 @@ describe Theatre do
     end
 
     it 'buy_ticket' do
-      expect(neigbor_cinema.buy_ticket("The Wizard of Oz")).to eq(3)
-      expect(neigbor_cinema.cash).to eq(3)
+      expect(neigbor_cinema.buy_ticket("The Wizard of Oz")).to eq("$3.00")
+      expect(neigbor_cinema.cash).to eq("$3.00")
     end
 
     it 'take' do
@@ -46,8 +46,8 @@ describe Theatre do
     end
 
     it 'buy_ticket' do
-      expect(big_film.buy_ticket("The Wizard of Oz")).to eq(3)
-      expect(big_film.cash).to eq(3)
+      expect(big_film.buy_ticket("The Wizard of Oz")).to eq("$3.00")
+      expect(big_film.cash).to eq("$3.00")
     end
 
     it 'take' do
