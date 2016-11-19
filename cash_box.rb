@@ -15,16 +15,6 @@ module Cashbox
     @cash_box.format
   end
 
-  #for theatre, it places money to moneybox, for Theatre only
-  def buy_ticket(movie_name)
-    time = self.when?(movie_name)
-    price = self.price[time]
-    @cash_box += price
-    puts "You have bought a ticket to \"#{movie_name}\"."
-    Money.new(price,"USD").format
-
-  end
-
   # transfers money to bank, for both Netflix and Theatre
   def take(who)
     raise ArgumentError, "Your transaction looks criminal and is rejected. Calling the police." unless who == "Bank"

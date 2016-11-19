@@ -68,7 +68,7 @@ class Movie
   end
 
   def price
-    self.class::PRICE
+    Money.from_amount(self.class::PRICE, "USD")
   end
 
 end

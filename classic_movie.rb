@@ -3,7 +3,7 @@ require 'money'
 I18n.enforce_available_locales = false
 
 class ClassicMovie < Movie
-  PRICE = Money.from_amount(1.5, "USD")
+  PRICE = 1.5
 
   def long_title
     films = @collection.filter(director: self.director)

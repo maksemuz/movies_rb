@@ -5,7 +5,6 @@ class Theatre < MovieCollection
 
   def initialize (movie_file)
     super(movie_file)
-    @cash_box = 0.0
   end
   SCHEDULE = {
       8...12 => {period: 'ancient'},
@@ -45,5 +44,14 @@ it does not match our schedule filters." unless time
     puts "#{movie_name}. You can watch it at #{time[0].first}:00 - #{time[0].last}:00"
     time[0]
   end
+
+  def buy_ticket(movie_name)
+    time = self.when?(movie_name)
+    price = self.price[time]
+    pay(price)
+    puts "You have bought a ticket to \"#{movie_name}\"."
+    Money.new(price,"USD").format
+  end
+
 end
 

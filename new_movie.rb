@@ -4,7 +4,7 @@ require 'money'
 I18n.enforce_available_locales = false
 
 class NewMovie < Movie
-  PRICE = Money.from_amount(5, "USD")
+  PRICE = 5
 
   def get_word(years)
     return 'лет' if (11..19).include?(years)

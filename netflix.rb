@@ -3,7 +3,7 @@ require './cash_box.rb'
 class Netflix < MovieCollection
   extend Cashbox
 
-  attr_accessor :user_account
+  attr_reader :user_account
 
   def initialize(movie_file)
     super(movie_file)
