@@ -6,7 +6,8 @@ Encoding.default_external = 'UTF-8'
 describe "Kino" do
 
   context "kino_online" do
-    kino_online = Kino::Netflix.new('./movies.txt')
+
+    kino_online = Netflix.new('./movies.txt')
     payment = Money.from_amount(30,"USD")
     movie = "The Terminator"
     wrong_movie = "Very special film"
@@ -32,7 +33,7 @@ describe "Kino" do
   end
 
   context "web_cinema" do
-    web_cinema = Kino::Netflix.new('./movies.txt')
+    web_cinema = Netflix.new('./movies.txt')
     payment = Money.from_amount(40,"USD")
     movie = "The Terminator"
     wrong_movie = "Very special film"
@@ -55,3 +56,4 @@ describe "Kino" do
     end
 
   end
+end
