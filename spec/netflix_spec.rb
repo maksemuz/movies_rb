@@ -8,6 +8,7 @@ Encoding.default_external = 'UTF-8'
 
 describe Netflix do
 
+
   context "kino_online" do
     kino_online = Netflix.new('./movies.txt')
     payment = Money.from_amount(30,"USD")

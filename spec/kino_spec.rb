@@ -1,11 +1,22 @@
 require 'rspec/its'
-require './kino.rb'
+require './movie.rb'
+require './ancient_movie.rb'
+require './classic_movie.rb'
+require './modern_movie.rb'
+require './new_movie.rb'
+require './movie_collection.rb'
+require './netflix.rb'
+require './theatre.rb'
+require 'ostruct'
+require 'date'
+require 'money'
 
 Encoding.default_external = 'UTF-8'
 
 describe "Kino" do
-
+  include Kino
   context "kino_online" do
+
 
     kino_online = Netflix.new('./movies.txt')
     payment = Money.from_amount(30,"USD")
@@ -21,7 +32,6 @@ describe "Kino" do
       expect(kino_online.show(period: 'new', genre: 'Comedy').genre).to include('Comedy')
     end
     it '.how_much' do
-      wrong_movie = "Very special film"
       expect(kino_online.how_much?(movie) ).to eq("$3.00")
       expect {kino_online.how_much?(wrong_movie) }.to raise_error( ArgumentError, "There is no film named Very special film in our collection. Sorry.")
     end
