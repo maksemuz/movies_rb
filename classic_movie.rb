@@ -1,8 +1,4 @@
 module Kino
-  require './movie.rb'
-  require 'money'
-  I18n.enforce_available_locales = false
-
 
   class ClassicMovie < Movie
     PRICE = 1.5

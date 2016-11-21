@@ -1,8 +1,4 @@
 module Kino
-  require 'date'
-  require './movie.rb'
-  require 'money'
-  I18n.enforce_available_locales = false
 
   class NewMovie < Movie
     PRICE = 5

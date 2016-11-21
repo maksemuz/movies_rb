@@ -83,11 +83,12 @@ online.pay(payment4)
 online.show(period: 'new')
 puts "======payment: #{payment4.format}"
 puts "=====ALL CASH: #{Kino::Netflix.cash }"
-
+=begin
 
 #netflix.all.each { |movie| puts "#{movie.director}"}
 
-=begin
+
+=end
 
 movie_file = "./movies.txt"
 theatre = Theatre.new(movie_file)
@@ -98,9 +99,14 @@ theatre.show(20)
 puts "\n\n###### The Theatre when ######\n---------------------------------\n"
 puts theatre.when?("Downfall")
 puts theatre.when?("The Wizard of Oz")
-puts theatre.when?("The Terminator")
+#puts theatre.when?("The Terminator")
+
+puts theatre.cash
+
+theatre.buy_ticket("The Wizard of Oz")
+
+puts theatre.cash
+
 #movies.all
 #puts "\n\n### all show ###\n"
 #movies.all.each {|movie| puts "#{movie.output}"}
-
-=end

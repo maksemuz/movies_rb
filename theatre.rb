@@ -6,6 +6,7 @@ module Kino
 
     def initialize (movie_file)
       super(movie_file)
+      @cash_box = Money.new(0, "USD")
     end
     SCHEDULE = {
         8...12 => {period: 'ancient'},
@@ -39,6 +40,7 @@ duration: #{to_watch.duration} min."
     # this method shows time when you can watch the movie
     def when?(movie_name)
       movie = self.all.find { |val| val.title == movie_name}
+      raise ArgumentError, "We could not find the \"#{movie}\" in our collection" unless movie
       time = SCHEDULE.find { |key,val| key if movie.matches?(val.to_a.flatten[0],val.to_a.flatten[1])}
       raise ArgumentError,"You cannot watch \"#{movie.title}\" in our theatre, \
 it does not match our schedule filters." unless time
@@ -48,10 +50,11 @@ it does not match our schedule filters." unless time
 
     def buy_ticket(movie_name)
       time = self.when?(movie_name)
+      raise ArgumentError, "!!! Theatre.buy_ticket : tinme is: #{time}" unless time
       price = self.price[time]
-      pay(price)
+      raise ArgumentError, "!!! price #{price.class}" unless price
       puts "You have bought a ticket to \"#{movie_name}\"."
-      Money.new(price,"USD").format
+      pay(price)
     end
 
   end

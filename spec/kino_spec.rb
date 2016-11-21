@@ -12,9 +12,8 @@ require 'date'
 require 'money'
 
 Encoding.default_external = 'UTF-8'
-
+include Kino
 describe "Kino" do
-  include Kino
   context "kino_online" do
 
 

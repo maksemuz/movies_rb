@@ -15,7 +15,8 @@ module Kino
     def pay(amount)
       @user_account += amount
       self.class.pay(amount)
-      @user_account
+      raise ArgumentError "Error: #{@user_account}" unless @user_account != Money.new(0, "USD")
+      @user_account.format
     end
 
     def show(parameters)
@@ -24,7 +25,7 @@ module Kino
       dur = to_watch.duration
       start_time = Time.now
       end_time = start_time + (dur * 60)
-      raise ArgumentError, "There is not enough money to watch #{to_watch.title}.\n Your balance is #{@user_account}." unless (@user_account - to_watch.price) >= 0
+      raise ArgumentError, "There is not enough money to watch #{to_watch.title}.\n Your balance is #{@user_account.format}." unless (@user_account - to_watch.price) >= Money.new(0,"USD")
       @user_account -= to_watch.price
       puts "Now showing: #{to_watch.long_title}. #{start_time.strftime("%H:%M")} - #{end_time.strftime("%H:%M")}"
       puts "Price is #{to_watch.price.format}. Now your balance is: #{Money.new(@user_account,"USD").format}"
