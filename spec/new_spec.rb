@@ -11,7 +11,7 @@ describe NewMovie do
 
   it { is_expected.to be_an NewMovie }
 
-  its(:year) { is_expected.to be > 2000 }
+  its(:year) { is_expected.to be >= 2000 }
 
   its(:price) { is_expected.to eq 5 }
 
