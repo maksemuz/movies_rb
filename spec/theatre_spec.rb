@@ -43,34 +43,4 @@ describe Theatre do
     end
   end
 
-
-  context 'Large screen' do
-    let (:large_screen) { Theatre.new('./movies.txt') }
-
-    it '.show genre' do
-      expect(large_screen.show(21).genre).to include('Drama').or include('Crime').or include('Horror')
-    end
-    it 'show out of range ' do
-      expect {large_screen.show(00)}.to raise_error(ArgumentError,'There are no films to watch at this time. Sorry.')
-    end
-    it '.when' do
-      expect(large_screen.when?("The Wizard of Oz")).to match(8...12)
-    end
-    it 'no such a film' do
-      expect { large_screen.when?("The Big Boss Ozzy") }.to raise_error ArgumentError
-    end
-    it 'buy_ticket' do
-      expect { large_screen.buy_ticket("The Wizard of Oz") }.to change{large_screen.cash}
-                                                                      .from("$0.00")
-                                                                      .to("$3.00")
-    end
-    it 'wrong take' do
-      expect {large_screen.take("to me")}.to raise_error(ArgumentError,'Your transaction looks criminal and is rejected. Calling the police.')
-    end
-    it 'take to bank ' do
-      expect(large_screen.take("Bank")).to eq("Transaction was accepted.")
-    end
-  end
-
-
 end
