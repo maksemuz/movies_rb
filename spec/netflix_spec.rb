@@ -14,15 +14,13 @@ describe Netflix do
     let (:payment) { Money.from_amount(30,'USD') }
     let (:movie_to_test) { 'The Terminator' }
     let (:wrong_movie) { 'Very special film' }
-    it 'pay' do
-      expect(kino_online.pay(payment)).to eq('$30.00')
-    end
+
     it 'cash' do
-      before {kino_online.pay(payment)}
+      kino_online.pay(payment)
       expect(Netflix.cash).to eq('$30.00')
     end
     it '.show' do
-      before {kino_online.pay(payment)}
+      kino_online.pay(payment)
       expect(kino_online.show(period: 'new', genre: 'Comedy').genre).to include('Comedy')
     end
     it '.how_much - movie' do
@@ -45,15 +43,13 @@ describe Netflix do
     let (:payment) { Money.from_amount(40,'USD') }
     let (:movie_to_test) { 'The Terminator' }
     let (:wrong_movie) { 'Very special film' }
-    it 'pay' do
-      expect(web_cinema.pay(payment)).to eq('$40.00')
-    end
+
     it 'cash' do
-      before { web_cinema.pay(payment) }
+      web_cinema.pay(payment)
       expect(Netflix.cash).to eq('$40.00')
     end
     it '.show' do
-      before { web_cinema.pay(payment) }
+      web_cinema.pay(payment)
       expect(web_cinema.show(period: 'new', genre: 'Comedy').genre).to include('Comedy')
     end
     it '.how_much - movie' do
