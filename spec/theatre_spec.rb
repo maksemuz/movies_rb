@@ -32,8 +32,7 @@ describe Theatre do
     end
     it 'buy_ticket' do
       expect { neigbor_cinema.buy_ticket("The Wizard of Oz") }.to change{neigbor_cinema.cash}
-                                                                     .from("$0.00")
-                                                                     .to("$3.00")
+                                                                     .by(Money.from_amount(3,'USD'))
     end
     it 'wrong take' do
       expect {neigbor_cinema.take("to me")}.to raise_error(ArgumentError,'Your transaction looks criminal and is rejected. Calling the police.')

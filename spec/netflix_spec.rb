@@ -7,7 +7,7 @@ require './cash_box.rb'
 Encoding.default_external = 'UTF-8'
 
 include Kino
-describe Netflix do
+describe 'Netflix' do
 
   context 'kino_online' do
     let (:kino_online) { Netflix.new('./movies.txt') }
@@ -16,7 +16,8 @@ describe Netflix do
     let (:wrong_movie) { 'Very special film' }
 
     it 'cash' do
-      expect {  kino_online.pay(payment) }.to change{Netflix.cash}.by(payment)
+      kino_online.pay(payment)
+      expect {  kino_online.pay(payment) }.to change { Netflix.cash }.by(payment)
     end
     it '.show' do
       kino_online.pay(payment)
@@ -40,11 +41,11 @@ describe Netflix do
   context 'common cash_box' do
     let (:kino1) { Netflix.new('./movies.txt') }
     let (:kino2) { Netflix.new('./movies.txt') }
-    let (:payment) { Money.from_amount(30,'USD') }
+    let (:payment1) { Money.new(3000,'USD') }
+    let (:payment2) { Money.new(4000,'USD') }
 
     it 'separated payment' do
-      expect { kino1.pay(payment);kino1.pay(payment) }.to change{Netflix.cash}.by(payment * 2)
+      expect { kino1.pay(payment1);kino1.pay(payment2) }.to change{Netflix.cash}.by(payment1 + payment2)
     end
   end
-
 end

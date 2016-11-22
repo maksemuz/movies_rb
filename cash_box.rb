@@ -8,7 +8,7 @@ module Kino
 
     # returns amount of money, for both Netflix and Theatre
     def cash
-      @cash_box.format
+      @cash_box
     end
 
     def pay(amount)
@@ -24,7 +24,6 @@ module Kino
       @cash_box = Money.new(0, "USD")
       "Transaction was accepted."
     end
-
   end
 
 end
