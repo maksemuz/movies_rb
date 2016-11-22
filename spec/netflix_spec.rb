@@ -37,6 +37,14 @@ describe Netflix do
 
   end
 
+  context 'common cash_box' do
+    let (:kino1) { Netflix.new('./movies.txt') }
+    let (:kino2) { Netflix.new('./movies.txt') }
+    let (:payment) { Money.from_amount(30,'USD') }
 
+    it 'separated payment' do
+      expect { kino1.pay(payment);kino1.pay(payment) }.to change{Netflix.cash}.by(payment * 2)
+    end
+  end
 
 end
