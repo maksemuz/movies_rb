@@ -8,7 +8,6 @@ module Kino
 
     # returns amount of money, for both Netflix and Theatre
     def cash
-      raise ArgumentError, "!!! @cash_box #{@cash_box.class}" unless @cash_box
       @cash_box.format
     end
 
@@ -22,7 +21,7 @@ module Kino
     # transfers money to bank, for both Netflix and Theatre
     def take(who)
       raise ArgumentError, "Your transaction looks criminal and is rejected. Calling the police." unless who == "Bank"
-      @cash_box = 0.0
+      @cash_box = Money.new(0, "USD")
       "Transaction was accepted."
     end
 

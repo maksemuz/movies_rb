@@ -18,10 +18,11 @@ describe Netflix do
       expect(kino_online.pay(payment)).to eq('$30.00')
     end
     it 'cash' do
+      before {kino_online.pay(payment)}
       expect(Netflix.cash).to eq('$30.00')
     end
     it '.show' do
-      kino_online.pay(payment)
+      before {kino_online.pay(payment)}
       expect(kino_online.show(period: 'new', genre: 'Comedy').genre).to include('Comedy')
     end
     it '.how_much - movie' do
@@ -48,10 +49,11 @@ describe Netflix do
       expect(web_cinema.pay(payment)).to eq('$40.00')
     end
     it 'cash' do
+      before { web_cinema.pay(payment) }
       expect(Netflix.cash).to eq('$40.00')
     end
     it '.show' do
-      web_cinema.pay(payment)
+      before { web_cinema.pay(payment) }
       expect(web_cinema.show(period: 'new', genre: 'Comedy').genre).to include('Comedy')
     end
     it '.how_much - movie' do

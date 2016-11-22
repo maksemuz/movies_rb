@@ -14,8 +14,8 @@ Encoding.default_external = 'UTF-8'
 include Kino
 describe Theatre do
 
-
   context 'Neighbor cinema' do
+
     let (:neigbor_cinema) { Theatre.new('./movies.txt') }
 
     it '.show genre' do
@@ -71,5 +71,6 @@ describe Theatre do
       expect(large_screen.take("Bank")).to eq("Transaction was accepted.")
     end
   end
+
 
 end
