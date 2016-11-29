@@ -1,12 +1,10 @@
+# AncientMovie class
 module Kino
-
   class AncientMovie < Movie
     PRICE = 1
 
     def long_title
-      "#{self.title} — старый фильм (#{self.year} год)"
+      "#{title} — старый фильм (#{year} год)"
     end
-
   end
 end
-
