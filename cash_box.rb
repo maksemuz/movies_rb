@@ -19,8 +19,7 @@ module Kino
 
     # transfers money to bank, for both Netflix and Theatre
     def take(who)
-      raise ArgumentError, 'Your transaction looks criminal and is rejected.'\
-'Calling the police.' unless who == 'Bank'
+      raise ArgumentError, 'Your transaction looks criminal and is rejected. Calling the police.' unless who == 'Bank'
       @cash_box = Money.new(0, 'USD')
       'Transaction was accepted.'
     end

@@ -2,17 +2,16 @@ module Kino
   require 'csv'
 
   class MovieCollection
-
     include Enumerable
 
     def initialize(file_name)
       @file_name = file_name
-      @movies = CSV.readlines(@file_name,col_sep: '|')
-                    .map { |row| Movie.create(*row,self)}
+      @movies = CSV.readlines(@file_name, col_sep: '|')
+                   .map { |row| Movie.create(*row, self) }
     end
 
     def genres
-      @genres ||=  @movies.each.map { |movie| movie.genre}.flatten.uniq
+      @genres ||= @movies.each.map(&:genre).flatten.uniq
     end
 
     def all
@@ -24,17 +23,17 @@ module Kino
     end
 
     def filter(filters)
-      filters.reduce(@movies) { |memo, (key,val)|
-        memo.find_all { |row| row.matches?(key,val)} }
+      filters.reduce(@movies) do |memo, (key, val)|
+        memo.find_all { |row| row.matches?(key, val) }
+      end
     end
 
     def stats(value)
       @movies.map { |movie| movie.send(value) }
-          .flatten
-          .group_by(&:itself)
-          .map{|k,v| [k, v.count] }
+             .flatten
+             .group_by(&:itself)
+             .map { |k, v| [k, v.count] }
     end
-
 
     def get_rnd_film(films)
       # this method returns the single random movie object
@@ -49,8 +48,7 @@ module Kino
       else
         rate = rate_max.round(1)
       end
-      films.find_all { |movie| movie.rating.to_f >= rate}.sample
+      films.find_all { |movie| movie.rating.to_f >= rate }.sample
     end
-
   end
 end

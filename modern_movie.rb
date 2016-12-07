@@ -1,11 +1,9 @@
 module Kino
-
   class ModernMovie < Movie
     PRICE = 3
 
     def long_title
-      "#{self.title} — современное кино: играют #{self.main_actors * ", "}"
+      "#{title} — современное кино: играют #{main_actors * ', '}"
     end
-
   end
 end

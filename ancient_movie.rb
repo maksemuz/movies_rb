@@ -1,5 +1,6 @@
-# AncientMovie class
+# part of module Kino
 module Kino
+  # AncientMovie class
   class AncientMovie < Movie
     PRICE = 1
 
