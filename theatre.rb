@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 module Kino
   require './cash_box.rb'
-
+  # Theatre class inherits the MovieCollection.
+  # It's created for real cinema, some methods are added
   class Theatre < MovieCollection
     include Cashbox
 
@@ -40,15 +41,13 @@ duration: #{to_watch.duration} min."
 
     # this method shows time when you can watch the movie
     def when?(movie_name)
-      movie = all.find { |val| val.title == movie_name }
+      movie = all.find do |val|
+        val.title == movie_name
+      end
       raise ArgumentError, "We could not find the \"#{movie}\" in our collection" unless movie
-      time = SCHEDULE
-                 .find { |key, val| key if movie
-                                               .matches?(val
-                                                             .to_a
-                                                             .flatten[0], val
-                                                                              .to_a
-                                                                              .flatten[1]) }
+      time = SCHEDULE.find do |key, val|
+        key if movie.matches?(val.to_a.flatten[0], val.to_a.flatten[1])
+      end
       raise ArgumentError, "You cannot watch \"#{movie.title}\" in our theatre, \
 it does not match our schedule filters." unless time
       puts "#{movie_name}. You can watch it at #{time[0].first}:00 - #{time[0].last}:00"

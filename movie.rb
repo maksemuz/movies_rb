@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module Kino
   require 'date'
-
+  # Class Movie, the source of 4 child classes
   class Movie
     attr_reader :link, :title, :year, :country,
                 :date, :genre, :duration, :rating,
@@ -34,13 +34,13 @@ module Kino
       Date::MONTHNAMES[@date.month.to_i] if @date.month
     end
 
-    def has_genre?(value)
-      raise ArgumentError,"Error. There's no such genre: \"#{value}\"."\
+    def genre?(value)
+      raise ArgumentError, "Error. There's no such genre: \"#{value}\"."\
         unless @collection.genres.include?(value)
       genre.include?(value)
     end
 
-    def has_actor?(value)
+    def actor?(value)
       @actor.include?(value)
     end
 
@@ -53,8 +53,8 @@ module Kino
     end
 
     def self.create(link, title, year, country,
-        date, genre, duration, rating,
-        director, main_actors, collection)
+                    date, genre, duration, rating,
+                    director, main_actors, collection)
       case year.to_i
       when (1900...1945)
         AncientMovie.new(link, title, year, country,

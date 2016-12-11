@@ -4,6 +4,7 @@ AllCops:
   Exclude:
     - 'spec/*'
     - 'demo.rb'
+    - 'test/blocks_test.rb'
 
 
 Style/Encoding:

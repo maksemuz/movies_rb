@@ -1,6 +1,7 @@
 # encoding: utf-8
 # frozen_string_literal: true
 module Kino
+  # Class NewMovie, inherits the Movie, some special attributes and behaviour are added
   class NewMovie < Movie
     PRICE = 5
 

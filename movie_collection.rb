@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module Kino
   require 'csv'
-
+  # class MovieCollection, the source for Netflix and Theatre
   class MovieCollection
     include Enumerable
 

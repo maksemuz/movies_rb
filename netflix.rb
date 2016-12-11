@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 module Kino
   require './cash_box.rb'
-
+  # Netflix class inherits the MovieCollection.
+  # It's created for online cinema, some methods are added
   class Netflix < MovieCollection
     extend Cashbox
 
@@ -37,7 +38,7 @@ module Kino
         films = all.find_all &@requests[parameters]
       end
       raise ArgumentError, 'Nothing matches your request,'\
-      ' please correct it' if films == nil
+      ' please correct it' if films.nil?
       get_film(get_rnd_film(films))
     end
 
@@ -64,13 +65,13 @@ module Kino
       movie.price.format
     end
 
-    def define_filter(parameters, &filter)
-      raise ArgumentError, "Filter name #{parameters} already exists."\
-      "Please choose another one." unless @requests[parameters].nil?
-      if parameters.class == Hash
-        @requests[parameters[:name]] = ->(item) { @requests[parameters[:from]].call(item, parameters[:arg]) }
+    def define_filter(params, &filter)
+      raise ArgumentError, "Filter name #{params} already exists."\
+      "Please choose another one." unless @requests[params].nil?
+      if params.class == Hash
+        @requests[params[:name]] = ->(item) { @requests[params[:from]].call(item, params[:arg]) }
       else
-        @requests[parameters] = filter
+        @requests[params] = filter
       end
     end
   end
