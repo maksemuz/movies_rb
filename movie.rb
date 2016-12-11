@@ -3,29 +3,13 @@ module Kino
   require 'date'
 
   class Movie
-    attr_reader :link,
-                :title,
-                :year,
-                :country,
-                :date,
-                :genre,
-                :duration,
-                :rating,
-                :director,
-                :main_actors,
-                :collection
+    attr_reader :link, :title, :year, :country,
+                :date, :genre, :duration, :rating,
+                :director, :main_actors, :collection
 
-    def initialize(link,
-                   title,
-                   year,
-                   country,
-                   date,
-                   genre,
-                   duration,
-                   rating,
-                   director,
-                   main_actors,
-                   collection)
+    def initialize(link, title, year, country,
+                   date, genre, duration, rating,
+                   director, main_actors, collection)
       @link = link
       @title = title
       @year = year.to_i
@@ -68,66 +52,26 @@ module Kino
       end
     end
 
-    def self.create(link,
-                    title,
-                    year,
-                    country,
-                    date,
-                    genre,
-                    duration,
-                    rating,
-                    director,
-                    main_actors,
-                    collection)
+    def self.create(link, title, year, country,
+        date, genre, duration, rating,
+        director, main_actors, collection)
       case year.to_i
       when (1900...1945)
-        AncientMovie.new(link,
-                         title,
-                         year,
-                         country,
-                         date,
-                         genre,
-                         duration,
-                         rating,
-                         director,
-                         main_actors,
-                         collection)
+        AncientMovie.new(link, title, year, country,
+                         date, genre, duration, rating,
+                         director, main_actors, collection)
       when (1945...1968)
-        ClassicMovie.new(link,
-                         title,
-                         year,
-                         country,
-                         date,
-                         genre,
-                         duration,
-                         rating,
-                         director,
-                         main_actors,
-                         collection)
+        ClassicMovie.new(link, title, year, country,
+                         date, genre, duration, rating,
+                         director, main_actors, collection)
       when (1968...2000)
-        ModernMovie.new(link,
-                        title,
-                        year,
-                        country,
-                        date,
-                        genre,
-                        duration,
-                        rating,
-                        director,
-                        main_actors,
-                        collection)
+        ModernMovie.new(link, title, year, country,
+                        date, genre, duration, rating,
+                        director, main_actors, collection)
       else
-        NewMovie.new(link,
-                     title,
-                     year,
-                     country,
-                     date,
-                     genre,
-                     duration,
-                     rating,
-                     director,
-                     main_actors,
-                     collection)
+        NewMovie.new(link, title, year, country,
+                     date, genre, duration, rating,
+                     director, main_actors, collection)
       end
     end
 
