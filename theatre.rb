@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Kino
   require './cash_box.rb'
 
@@ -41,7 +42,13 @@ duration: #{to_watch.duration} min."
     def when?(movie_name)
       movie = all.find { |val| val.title == movie_name }
       raise ArgumentError, "We could not find the \"#{movie}\" in our collection" unless movie
-      time = SCHEDULE.find { |key, val| key if movie.matches?(val.to_a.flatten[0], val.to_a.flatten[1]) }
+      time = SCHEDULE
+                 .find { |key, val| key if movie
+                                               .matches?(val
+                                                             .to_a
+                                                             .flatten[0], val
+                                                                              .to_a
+                                                                              .flatten[1]) }
       raise ArgumentError, "You cannot watch \"#{movie.title}\" in our theatre, \
 it does not match our schedule filters." unless time
       puts "#{movie_name}. You can watch it at #{time[0].first}:00 - #{time[0].last}:00"

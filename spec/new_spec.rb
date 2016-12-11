@@ -28,6 +28,4 @@ describe NewMovie do
     expect(movie.get_word(4)).to eq('года')
   end
 
-
-
 end

@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 Encoding.default_external = 'UTF-8'
 require './movie.rb'
@@ -53,21 +54,39 @@ puts "\n\n###### The Netflix show: netflix ######\n-----------------------------
 # puts netflix.inspect
 netflix.pay(payment1)
 # puts netflix.how_much?("The Terminator")
-#netflix.show(period: 'classic',genre: 'Horror')
+# netflix.show(period: 'classic',genre: 'Horror')
 
-puts "=============== test 1 ========================="
+puts "\n=============== test 1 ========================="
+netflix.show(period: 'classic', genre: 'Horror')
 
-look_for_term = lambda { |movie| movie.title.include?('Terminator') && movie.genre.include?('Action') && movie.year < 2003}
+puts "\n=============== test 2 ========================="
+netflix.show { |movie|
+  movie.title
+      .include?('Terminator') && movie.genre
+                                     .include?('Action') }
 
-netflix.show(look_for_term)
+puts "\n=============== test 3 ========================="
+netflix.define_filter(:myreq3) { |item, year|
+  item.year
+      .to_i > year && item.genre
+                          .include?('Drama') }
+netflix.show(myreq3: 2003)
 
+puts "\n=============== test 4 ========================="
+netflix.define_filter(:myreq1) { |item|
+  !item.title
+       .include?('Terminator') && item.genre
+                                      .include?('Horror') }
+netflix.define_filter(:myreq2) { |item|
+  item.title
+      .include?('The') && item.genre
+                              .include?('Comedy') }
+netflix.show(:myreq1)
+netflix.show(:myreq2)
 
-puts "=============== test 2 ========================="
-
-look_for_genres = { period: 'classic',genre: 'Horror' }
-
-netflix.show(look_for_genres)
-
+puts "\n=============== test 5 ========================="
+netflix.define_filter(name: :myreq4, from: :myreq3, arg: 2000)
+netflix.show(:myreq4)
 
 =begin
 netflix.pay(payment2)

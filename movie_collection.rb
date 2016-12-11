@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Kino
   require 'csv'
 
@@ -43,11 +44,11 @@ module Kino
       rate_max = films.max_by(&:rating).rating
       rnum = Random.new
       u = rnum.rand(rate_max) / rate_max
-      if u <= 1
-        rate = (rate_min + Math.sqrt(u * ((rate_max - rate_min)**2))).round(1)
-      else
-        rate = rate_max.round(1)
-      end
+      rate = if u <= 1
+               (rate_min + Math.sqrt(u * ((rate_max - rate_min)**2))).round(1)
+             else
+               rate_max.round(1)
+             end
       films.find_all { |movie| movie.rating.to_f >= rate }.sample
     end
   end
