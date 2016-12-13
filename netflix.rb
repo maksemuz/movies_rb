@@ -22,11 +22,13 @@ module Kino
       @user_account.format
     end
 
-    def show(parameters = {})
-      if (!@requests[parameters] && !@requests[parameters.keys[0]])
+    def show(parameters = {}, &block)
+      if all.first.methods.include?(parameters.keys[0]) || block
         films = filter(parameters)
-      else
+      elsif @requests[parameters] || @requests[parameters.keys[0]]
         films = all.find_all &@requests[parameters]
+      else
+        raise ArgumentError, "Your request #{parameters} is incorrect. Please correct it."
       end
       raise ArgumentError, 'Nothing matches your request,'\
         ' please correct it' if films.nil?

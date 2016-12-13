@@ -67,6 +67,7 @@ netflix.show { |movie|
                                      .include?('Action') }
 
 puts "\n=============== test 3 ========================="
+
 netflix.define_filter(:myreq3) { |item, year|
   item.year.to_i > year && item.genre.include?('Drama') }
 netflix.show(myreq3: 2003)
@@ -80,8 +81,8 @@ netflix.define_filter(:myreq2) { |item|
   item.title
       .include?('The') && item.genre
                               .include?('Comedy') }
-netflix.show(:myreq1)
-netflix.show(:myreq2)
+netflix.show(myreq1: true)
+netflix.show(myreq2: true)
 
 #puts "\n=============== test 5 ========================="
 #netflix.define_filter(:myreq4, from: :myreq3, arg: 2000)
@@ -94,9 +95,11 @@ netflix.show(new_sci_fi: 2000)
 puts "\n=============== test 7 ========================="
 
 netflix.define_filter(:newest_sci_fi, from: :new_sci_fi, arg: 2014)
-netflix.show(:newest_sci_fi)
+netflix.show(newest_sci_fi: true)
 
+puts "\n=============== test 8 ========================="
 
+netflix.show(newestsci_fi: true)
 =begin
 netflix.pay(payment2)
 # puts netflix.how_much?("The Terminator")
