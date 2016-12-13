@@ -57,14 +57,17 @@ module Kino
       movie.price.format
     end
 
-    def define_filter(*params, &filter)
-      raise ArgumentError, "Filter name #{params} already exists."\
-        "Please choose another one." unless !@requests.key?(params)
-      if !filter && !params.nil?
-        @requests[params[0]] = lambda { |item| @requests[params[1][:from]].call(item, params[1][:arg]) }
+    def define_filter(name, from: nil, arg: nil, &filter)
+      raise ArgumentError, "Filter name #{name} already exists."\
+        "Please choose another one." unless !@requests.key?(name)
+      if !filter && !from.nil? && !arg.nil?
+        @requests[name] = lambda { |item| @requests[from].call(item, arg) }
       else
-        @requests[params[0]] = filter
+        @requests[name] = filter
       end
     end
   end
 end
+
+# netflix.define_filter(:myreq3) { |item, year| item.year.to_i > year && item.genre.include?('Drama') }
+# netflix.show(myreq3: 2003)
