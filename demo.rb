@@ -47,7 +47,7 @@ end
 # movies.all.find_all { |e| puts "#{e.title}, #{e.genre}, #{e.has_genre?("Comedy")}" }
 
 movie_file = './movies.txt'
-payment1 = Money.from_amount(30, 'USD')
+payment1 = Money.from_amount(300, 'USD')
 
 netflix = Kino::Netflix.new(movie_file)
 puts "\n\n###### The Netflix show: netflix ######\n---------------------------------\n"
@@ -58,6 +58,7 @@ netflix.pay(payment1)
 
 puts "\n=============== test 1 ========================="
 netflix.show(period: 'classic', genre: 'Horror')
+netflix.show(genre: 'Comedy') { |m| m.year.even? }
 
 puts "\n=============== test 2 ========================="
 netflix.show { |movie|
@@ -67,9 +68,7 @@ netflix.show { |movie|
 
 puts "\n=============== test 3 ========================="
 netflix.define_filter(:myreq3) { |item, year|
-  item.year
-      .to_i > year && item.genre
-                          .include?('Drama') }
+  item.year.to_i > year && item.genre.include?('Drama') }
 netflix.show(myreq3: 2003)
 
 puts "\n=============== test 4 ========================="
@@ -84,9 +83,19 @@ netflix.define_filter(:myreq2) { |item|
 netflix.show(:myreq1)
 netflix.show(:myreq2)
 
-puts "\n=============== test 5 ========================="
-netflix.define_filter(name: :myreq4, from: :myreq3, arg: 2000)
-netflix.show(:myreq4)
+#puts "\n=============== test 5 ========================="
+#netflix.define_filter(:myreq4, from: :myreq3, arg: 2000)
+#netflix.show(:myreq4)
+puts "\n=============== test 6 ========================="
+
+netflix.define_filter(:new_sci_fi) { |movie, year| movie.year > year && movie.genre.include?('Sci-Fi') }
+netflix.show(new_sci_fi: 2000)
+
+puts "\n=============== test 7 ========================="
+
+netflix.define_filter(:newest_sci_fi, from: :new_sci_fi, arg: 2014)
+netflix.show(:newest_sci_fi)
+
 
 =begin
 netflix.pay(payment2)

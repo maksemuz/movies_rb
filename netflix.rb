@@ -18,27 +18,19 @@ module Kino
       @user_account += amount
       self.class.pay(amount)
       raise ArgumentError "Error: #{@user_account}"\
-      unless @user_account != Money.new(0, 'USD')
+        unless @user_account != Money.new(0, 'USD')
       @user_account.format
     end
 
     def show(parameters = {}, &block)
       if !parameters.empty? && (@requests[parameters].nil?\
         && @requests[parameters.keys[0]].nil?)
-        puts "===111=== #{parameters}"
         films = filter(parameters)
-      elsif block && parameters.empty?
-        puts "===222=== #{parameters}"
-        films = all.find_all &block
-      elsif parameters.class == Hash && !parameters.empty?
-        puts "===333=== #{parameters} == #{parameters.keys[0]} "
-        films = all.find_all &@requests[parameters]
       else
-        puts "===444=== #{parameters}"
         films = all.find_all &@requests[parameters]
       end
       raise ArgumentError, 'Nothing matches your request,'\
-      ' please correct it' if films.nil?
+        ' please correct it' if films.nil?
       get_film(get_rnd_film(films))
     end
 
@@ -47,31 +39,31 @@ module Kino
       start_time = Time.now
       end_time = start_time + (dur * 60)
       raise ArgumentError, "There is not enough money to watch #{to_watch.title}."\
-      "Your balance is #{@user_account.format}." \
-      unless (@user_account - to_watch.price) >= Money.new(0, 'USD')
+        "Your balance is #{@user_account.format}." \
+        unless (@user_account - to_watch.price) >= Money.new(0, 'USD')
       @user_account -= to_watch.price
       puts "Now showing: #{to_watch.long_title}."\
-      "#{start_time.strftime('%H:%M')} - #{end_time.strftime('%H:%M')}"
+        "#{start_time.strftime('%H:%M')} - #{end_time.strftime('%H:%M')}"
       puts "Price is #{to_watch.price.format}."\
-      "Now your balance is: #{Money.new(@user_account, 'USD').format}"
+        "Now your balance is: #{Money.new(@user_account, 'USD').format}"
       to_watch
     end
 
     def how_much?(movie_name)
       movie = all.find { |val| val.title == movie_name }
       raise ArgumentError, "There is no film named #{movie_name} in our collection."\
-      "Sorry." unless movie
+        "Sorry." unless movie
       puts " \"#{movie.title}\". Cost = #{movie.price}"
       movie.price.format
     end
 
-    def define_filter(params, &filter)
+    def define_filter(*params, &filter)
       raise ArgumentError, "Filter name #{params} already exists."\
-      "Please choose another one." unless @requests[params].nil?
-      if params.class == Hash
-        @requests[params[:name]] = ->(item) { @requests[params[:from]].call(item, params[:arg]) }
+        "Please choose another one." unless !@requests.key?(params)
+      if !filter && !params.nil?
+        @requests[params[0]] = lambda { |item| @requests[params[1][:from]].call(item, params[1][:arg]) }
       else
-        @requests[params] = filter
+        @requests[params[0]] = filter
       end
     end
   end
