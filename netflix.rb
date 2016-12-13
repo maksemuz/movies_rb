@@ -22,9 +22,8 @@ module Kino
       @user_account.format
     end
 
-    def show(parameters = {}, &block)
-      if !parameters.empty? && (@requests[parameters].nil?\
-        && @requests[parameters.keys[0]].nil?)
+    def show(parameters = {})
+      if (!@requests[parameters] && !@requests[parameters.keys[0]])
         films = filter(parameters)
       else
         films = all.find_all &@requests[parameters]
@@ -59,7 +58,7 @@ module Kino
 
     def define_filter(name, from: nil, arg: nil, &filter)
       raise ArgumentError, "Filter name #{name} already exists."\
-        "Please choose another one." unless !@requests.key?(name)
+        "Please choose another one." if @requests.key?(name)
       if !filter && !from.nil? && !arg.nil?
         @requests[name] = lambda { |item| @requests[from].call(item, arg) }
       else
@@ -68,6 +67,3 @@ module Kino
     end
   end
 end
-
-# netflix.define_filter(:myreq3) { |item, year| item.year.to_i > year && item.genre.include?('Drama') }
-# netflix.show(myreq3: 2003)
