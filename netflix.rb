@@ -22,10 +22,18 @@ module Kino
       @user_account.format
     end
 
+    def plain_filters(filters, &block)
+      true if all.first.methods.include?(filters.keys[0]) || block
+    end
+
+    def saved_searches(searches)
+      true if @requests[searches] || @requests[searches.keys[0]]
+    end
+
     def show(parameters = {}, &block)
-      if all.first.methods.include?(parameters.keys[0]) || block
+      if plain_filters(parameters, &block)
         films = filter(parameters)
-      elsif @requests[parameters] || @requests[parameters.keys[0]]
+      elsif saved_searches(parameters)
         films = all.find_all &@requests[parameters]
       else
         raise ArgumentError, "Your request #{parameters} is incorrect. Please correct it."
@@ -67,5 +75,6 @@ module Kino
         @requests[name] = filter
       end
     end
+
   end
 end
