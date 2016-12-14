@@ -46,18 +46,19 @@ module Kino
     def define_filter(name, from: nil, arg: nil, &filter)
       raise ArgumentError, "Filter name #{name} already exists."\
         "Please choose another one." if @requests.key?(name)
-      if !filter && !from.nil? && !arg.nil?
-        @requests[name] = lambda { |item| @requests[from].call(item, arg) }
+      @requests[name] = if !filter && !from.nil? && !arg.nil?
+         -> (item) { @requests[from].call(item, arg) }
       else
-        @requests[name] = filter
+        filter
       end
     end
 
-    private def plain_filters?(filters, &block)
+    private
+    def plain_filters?(filters, &block)
       all.first.methods.include?(filters.keys.first) || block
     end
 
-    private def saved_searches?(searches)
+    def saved_searches?(searches)
       case searches
         when Symbol
           @requests[searches]
@@ -66,7 +67,7 @@ module Kino
       end
     end
 
-    private def get_film(to_watch)
+    def get_film(to_watch)
       dur = to_watch.duration
       start_time = Time.now
       end_time = start_time + (dur * 60)
