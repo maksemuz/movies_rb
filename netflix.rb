@@ -22,19 +22,24 @@ module Kino
       @user_account.format
     end
 
-    def plain_filters(filters, &block)
-      true if all.first.methods.include?(filters.keys[0]) || block
+    private def plain_filters?(filters, &block)
+      all.first.methods.include?(filters.keys.first) || block
     end
 
-    def saved_searches(searches)
-      true if @requests[searches] || @requests[searches.keys[0]]
+    private def saved_searches?(searches)
+      case searches
+        when Symbol
+          @requests[searches]
+        when Hash
+          searches.size == 1 && @requests.key?(searches.keys.first)
+      end
     end
 
     def show(parameters = {}, &block)
-      if plain_filters(parameters, &block)
-        films = filter(parameters)
-      elsif saved_searches(parameters)
-        films = all.find_all &@requests[parameters]
+      films = if plain_filters?(parameters, &block)
+        filter(parameters)
+      elsif saved_searches?(parameters)
+        all.find_all &@requests[parameters]
       else
         raise ArgumentError, "Your request #{parameters} is incorrect. Please correct it."
       end
@@ -43,7 +48,8 @@ module Kino
       get_film(get_rnd_film(films))
     end
 
-    def get_film(to_watch)
+
+    private def get_film(to_watch)
       dur = to_watch.duration
       start_time = Time.now
       end_time = start_time + (dur * 60)
